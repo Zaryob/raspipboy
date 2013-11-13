@@ -48,7 +48,6 @@ if USE_CAMERA:
 	# Is there a camera module connected?
 	def hasCamera():
 		try:
-			global picamera
 			import picamera
 			camera = picamera.PiCamera()
 			camera.close()
