@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Main file
+
 import pygame, os, time, random, math, datetime
 from pygame.locals import *
 import config
