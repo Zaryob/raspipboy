@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# 'Radio' page
+
 import pygame
 import config
 
