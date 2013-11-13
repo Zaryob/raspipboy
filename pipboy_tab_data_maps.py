@@ -10,8 +10,6 @@ from pygame.locals import *
 import config
 import pipboy_places
 
-import pipboy_playerdata as playerdata
-
 class Mode_Map:
 	
 	mapType = 0
