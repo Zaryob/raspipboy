@@ -5,7 +5,7 @@
 import pygame, subprocess, io, Image, threading
 import config, main
 
-import picamera 
+import picamera # From: https://pypi.python.org/pypi/picamera
 
 import pipboy_headFoot as headFoot
 
