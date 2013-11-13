@@ -6,8 +6,8 @@ sudo apt-get install avahi-daemon python python-pygame python-imaging python-pip
 # For GPS:
 sudo apt-get install gpsd gpsd-clients python-gps
 
-# For timezone data:
-sudo pip install pytz
+# For timezone data: (not used yet...)
+#sudo pip install pytz
 
 # Set GPS Device to Pi's GPIO serial port: /dev/ttyAMA0
 sudo dpkg-reconfigure gpsd
