@@ -17,6 +17,7 @@ if config.USE_SERIAL:
 	# Load libraries used by serial device, if present:
 	def loadSerial():
 		try:
+			global serial
 			import serial
 		except:
 			# Deactivate serial-related systems if load failed:
