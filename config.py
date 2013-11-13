@@ -1,12 +1,16 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Configuration data
+
 # Device options 
 #  (These will be automatically be set to 'False' if unavailable)
 USE_INTERNET = True		# Download map/place data via internet connection
-USE_GPS = False 		# Use GPS module, accessed via GPSD daemon
-USE_SOUND = False		# Play sounds via RasPi's current sound-source
-USE_CAMERA = False		# Use RasPi camera-module as V.A.T.S
+USE_GPS = True 			# Use GPS module, accessed via GPSD daemon
+USE_SOUND = True		# Play sounds via RasPi's current sound-source
+USE_CAMERA = True		# Use RasPi camera-module as V.A.T.S
 USE_SERIAL = False		# Communicate with custom serial-port controller
 
-QUICKLOAD = True		# If true, commandline-startup bits aren't rendered
+QUICKLOAD = False		# If true, commandline-startup bits aren't rendered
 FORCE_DOWNLOAD = False	# Don't use cached map-data, if online
 
 # Render screen-objects at this size - smaller is faster
@@ -14,6 +18,7 @@ WIDTH = 320
 HEIGHT = 240
 
 # Address for map's default position: 
+#	(used if GPS is inactive)
 defaultPlace = "Washington DC"
 
 # Player data:

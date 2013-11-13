@@ -1,7 +1,10 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Class for 'Items' tab
+
 import pygame
 
 import config
-import pipboy_playerdata as playerdata
 import pipboy_headFoot as headFoot
 
 class Tab_Items:

@@ -1,4 +1,8 @@
-import os, time
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# GPS/position functions
+
+import os, time, math
 import urllib, urllib2, StringIO, json
 import config
 
@@ -6,7 +10,8 @@ if config.USE_GPS:
 	# Load libraries used by GPS, if present:
 	def loadGPS():
 		try:
-			import gps, math
+			global gps
+			import gps
 		except:
 			# Deactivate GPS-related systems if load failed:
 			print "GPS LIBRARY NOT FOUND!"

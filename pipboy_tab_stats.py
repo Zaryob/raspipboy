@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Class for 'Stats' tab
+
 import pygame, os, time, random, math, string, numpy
 from pygame.locals import *
 
@@ -376,7 +380,7 @@ class Tab_Stats:
 	
 	# Generate text for header:
 	def getHeaderText(self):
-		return [self.name, "LVL %s" %(playerdata.LEVEL), "HP 210/210", "AP 92/92", "XP 719/1000",]
+		return [self.name, "LVL %s" %(config.PLAYERLEVEL), "HP 210/210", "AP 92/92", "XP 719/1000",]
 		
 	# Trigger page-functions
 	def drawPage(self,modeNum):

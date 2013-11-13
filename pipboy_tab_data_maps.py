@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Bits dealing with maps
+
 import pygame, os, time, datetime, random, math, numpy
 import urllib
 from PIL import Image, ImageEnhance
@@ -5,8 +9,6 @@ from globalmaptiles import GlobalMercator
 from pygame.locals import *
 import config
 import pipboy_places
-
-import pipboy_playerdata as playerdata
 
 class Mode_Map:
 	

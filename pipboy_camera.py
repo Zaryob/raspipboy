@@ -1,6 +1,12 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# V.A.T.S. - Shows images from Raspberry Pi Camera
+
 import pygame, subprocess, io, Image, threading
 import config, main
-import picamera
+
+import picamera # From: https://pypi.python.org/pypi/picamera
+
 import pipboy_headFoot as headFoot
 
 class VATS:
