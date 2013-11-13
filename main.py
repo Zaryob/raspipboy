@@ -35,8 +35,9 @@ def getTimeStr():
 
 class Engine:
 	
+	# Default page-settings:
 	torchMode = False
-	tabNum = 1
+	tabNum = 0
 	modeNum = 0
 	serBuffer = ""
 	
