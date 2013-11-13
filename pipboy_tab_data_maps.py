@@ -5,7 +5,7 @@
 import pygame, os, time, datetime, random, math, numpy
 import urllib
 from PIL import Image, ImageEnhance
-from globalmaptiles import GlobalMercator
+from gdal/gdal2tiles import GlobalMercator
 from pygame.locals import *
 import config
 import pipboy_places
