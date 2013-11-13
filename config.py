@@ -1,3 +1,6 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+
 # Device options 
 #  (These will be automatically be set to 'False' if unavailable)
 USE_INTERNET = True		# Download map/place data via internet connection
@@ -14,6 +17,7 @@ WIDTH = 320
 HEIGHT = 240
 
 # Address for map's default position: 
+#	(used if GPS is inactive)
 defaultPlace = "Washington DC"
 
 # Player data:
