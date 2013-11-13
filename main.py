@@ -5,7 +5,6 @@
 import pygame, os, time, random, math, datetime
 from pygame.locals import *
 import config
-import pipboy_playerdata as playerdata
 
 from pipboy_gps import *
 from pipboy_tab_stats import *
