@@ -1,6 +1,6 @@
 # RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
 #	Neal D Corbett, 2013
-# Configuration file
+# Configuration data
 
 # Device options 
 #  (These will be automatically be set to 'False' if unavailable)
