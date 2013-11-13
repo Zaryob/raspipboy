@@ -380,7 +380,7 @@ class Tab_Stats:
 	
 	# Generate text for header:
 	def getHeaderText(self):
-		return [self.name, "LVL %s" %(playerdata.LEVEL), "HP 210/210", "AP 92/92", "XP 719/1000",]
+		return [self.name, "LVL %s" %(config.PLAYERLEVEL), "HP 210/210", "AP 92/92", "XP 719/1000",]
 		
 	# Trigger page-functions
 	def drawPage(self,modeNum):
