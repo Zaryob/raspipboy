@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# GPS/position functions
+
 import os, time
 import urllib, urllib2, StringIO, json
 import config
