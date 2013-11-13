@@ -1,0 +1,14 @@
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install avahi-daemon python python-pygame python-imaging gpsd gpsd-clients python-gps python-pip
+sudo pip install pytz
+
+# Set Device to Pi's GPIO serial port: /dev/ttyAMA0
+sudo dpkg-reconfigure gpsd
+
+# Set up Raspberry Pi camera-module: (https://pypi.python.org/pypi/picamera)
+sudo apt-get install python-rpi.gpio
+sudo easy_install -U picamera
+
+# Set up raspicam Video4Linux2 driver:
+http://www.linux-projects.org/modules/sections/index.php?op=viewarticle&artid=14
