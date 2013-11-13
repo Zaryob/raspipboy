@@ -5,7 +5,6 @@
 import pygame
 
 import main,config
-import pipboy_playerdata as playerdata
 import pipboy_headFoot as headFoot
 
 import pipboy_tab_data_maps as dataMap
