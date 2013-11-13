@@ -1,3 +1,7 @@
+# RasPipBoy: A Pip-Boy 3000 implementation for Raspberry Pi
+#	Neal D Corbett, 2013
+# Class for 'Stats' tab
+
 import pygame, os, time, random, math, string, numpy
 from pygame.locals import *
 
