@@ -6,12 +6,16 @@ sudo apt-get install avahi-daemon python python-pygame python-imaging python-pip
 # For GPS:
 sudo apt-get install gpsd gpsd-clients python-gps
 
-# For timezone data: (not used yet...)
-#sudo pip install pytz
-
 # Set GPS Device to Pi's GPIO serial port: /dev/ttyAMA0
 sudo dpkg-reconfigure gpsd
+
+# gdal2tiles.py is used here to convert between pixels/meters/latitude&longitude
+# I've included a cut-down version I found somewhere, not sure if a Pi-installable version is available...
+
+# For timezone data: (not used yet...)
+#sudo pip install pytz
 
 # V.A.T.S. requires Raspberry Pi camera-module and library: (https://pypi.python.org/pypi/picamera)
 sudo apt-get install python-rpi.gpio
 sudo easy_install -U picamera
+
