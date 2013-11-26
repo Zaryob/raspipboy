@@ -7,7 +7,7 @@ I may attempt to get this working on Android in future too.
 
 ## Features
 * Reasonably accurate simulation of the *Fallout 3* Pip-Boy interface!
-..* (at least the bits I've completed so far)
+    * (at least the bits I've completed so far...)
 * GPS-enabled map
 * V.A.T.S. camera option
 * Wifi-strength meter
