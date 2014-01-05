@@ -8,7 +8,7 @@ USE_INTERNET = True		# Download map/place data via internet connection
 USE_GPS = True 			# Use GPS module, accessed via GPSD daemon
 USE_SOUND = True		# Play sounds via RasPi's current sound-source
 USE_CAMERA = True		# Use RasPi camera-module as V.A.T.S
-USE_SERIAL = False		# Communicate with custom serial-port controller
+USE_SERIAL = True		# Communicate with custom serial-port controller
 
 QUICKLOAD = False		# If true, commandline-startup bits aren't rendered
 FORCE_DOWNLOAD = False	# Don't use cached map-data, if online
