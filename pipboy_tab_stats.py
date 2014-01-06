@@ -78,6 +78,19 @@ class Tab_Stats:
 				
 				if (self.name == 'BAT'):	# Show Battery status
 					newVal = self.maxVal
+					if (config.USE_SERIAL):
+						# Get relevant line from proc:
+						line = ""
+						with open('/proc/net/wireless', 'r') as f:
+							f.readline()
+							f.readline()
+							line = f.readline()
+						
+						# Get 'Quality:Level' value:
+						tokens = string.split(line)
+						token = tokens[3]
+						token = string.replace(token, ".", "")
+						newVal = string.atoi(token)
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
 					if (config.USE_INTERNET):
@@ -92,7 +105,7 @@ class Tab_Stats:
 						tokens = string.split(line)
 						token = tokens[3]
 						token = string.replace(token, ".", "")
-						newVal = string.atoi(token)						
+						newVal = string.atoi(token)
 				else:
 					newVal = self.minVal
 				
