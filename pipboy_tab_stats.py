@@ -92,7 +92,6 @@ class Tab_Stats:
 						elif (self.frameNum == 15):
 							self.frameNum = -1;
 						self.frameNum += 1;
-						print self.frameNum;
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
