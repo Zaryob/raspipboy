@@ -83,9 +83,11 @@ class Tab_Stats:
 					newVal = self.setVal
 					
 					if (config.USE_SERIAL):
-						# Send query to Teensy to get current battery voltage:
-						self.rootParent.ser.write("volts\n")
-						# (value is returned and set via page-events queue)
+						# Only do this every so often...
+						if (self.rootParent.frameNum == 0) do 
+							# Send query to Teensy to get current battery voltage:
+							self.rootParent.ser.write("volts\n")
+							# (value is returned and set via page-events queue)
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
