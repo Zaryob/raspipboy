@@ -89,8 +89,6 @@ class Tab_Stats:
 							# Send query to Teensy to get current battery voltage:
 							self.rootParent.ser.write("volts\n")
 							# (value is returned and set via page-events queue)
-							
-							
 						elif (self.frameNum == 15):
 							self.frameNum = -1;
 						self.frameNum++;						
