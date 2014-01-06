@@ -84,7 +84,7 @@ class Tab_Stats:
 					
 					if (config.USE_SERIAL):
 						# Send query to Teensy to get current battery voltage:
-						self.rootParent.ser.write("battery\n")
+						self.rootParent.ser.write("volts\n")
 						# (value is returned and set via page-events queue)
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
