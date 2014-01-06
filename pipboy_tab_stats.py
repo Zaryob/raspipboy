@@ -85,6 +85,8 @@ class Tab_Stats:
 						batVolts = self.rootParent.ser.readline()
 						batVolts = batVolts.strip()
 						
+						print batVolts
+						'''
 						line = ""
 						with open('/proc/net/wireless', 'r') as f:
 							f.readline()
@@ -96,6 +98,7 @@ class Tab_Stats:
 						token = tokens[3]
 						token = string.replace(token, ".", "")
 						newVal = string.atoi(token)
+						'''
 						
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
