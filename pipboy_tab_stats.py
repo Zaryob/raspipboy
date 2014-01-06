@@ -91,7 +91,7 @@ class Tab_Stats:
 							# (value is returned and set via page-events queue)
 						elif (self.frameNum == 15):
 							self.frameNum = -1;
-						self.frameNum++;						
+						self.frameNum += 1;						
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
