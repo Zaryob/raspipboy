@@ -79,7 +79,7 @@ class Tab_Stats:
 				if (self.name == 'BAT'):	# Show Battery status
 					newVal = self.maxVal
 					if (config.USE_SERIAL):
-						# Get relevant line from proc:
+						# Get current battery voltage from Teensy:
 						line = ""
 						with open('/proc/net/wireless', 'r') as f:
 							f.readline()
