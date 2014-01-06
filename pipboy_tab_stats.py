@@ -203,7 +203,7 @@ class Tab_Stats:
 							batVolts = float(tokens[1]);
 							minVolts = 2.44;
 							maxVolts = 3.84;
-							self.setVal = 100 * ((batVolts - minVolts) / (maxVolts - minVolts));
+							self.setVal = int(100 * ((batVolts - minVolts) / (maxVolts - minVolts)));
 		
 		######################################
 		
