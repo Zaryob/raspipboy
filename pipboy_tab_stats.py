@@ -196,7 +196,7 @@ class Tab_Stats:
 			def ctrlEvents(self,events):
 				
 				if (self.name == 'BAT'):	# Get battery-status events
-					self.setVal = 100;
+					self.setVal = 50;
 		
 		######################################
 		
