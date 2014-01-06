@@ -449,7 +449,7 @@ class Engine:
 								moveVals[1] += serMouseDist
 							elif (serBuffer == 'down'):	# Mouse down
 								moveVals[1] -= serMouseDist
-							elif (serBuffer.startswith('VOLTS')):	# Battery Voltage
+							elif (serBuffer.startswith('volts')):	# Battery Voltage
 								pageEvents.append(serBuffer)
 							
 							# Clear serial buffer:
