@@ -199,7 +199,11 @@ class Tab_Stats:
 					for event in events:
 						if (type(event) is str) and (event.startswith('volts')):
 							tokens = string.split(event);
-							self.setVal = float(tokens[1]);
+							
+							batVolts = float(tokens[1]);
+							minVolts = 2.44;
+							maxVolts = 3.84;
+							self.setVal = 100.0 * ((batVolts - minVolts) / (maxVolts - minVolts));
 		
 		######################################
 		
