@@ -197,7 +197,6 @@ class Tab_Stats:
 				
 				if (self.name == 'BAT'):	# Get battery-status events
 					for event in events:
-						print type(event);
 						if (type(event) is str) and (event.startswith('VOLTS')):
 							print (event);
 							self.setVal = 50;
