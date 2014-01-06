@@ -67,6 +67,7 @@ class Tab_Stats:
 			maxVal = 100
 			
 			setVal = maxVal
+			frameNum = 0
 			
 			def __init__(self, *args, **kwargs):
 				self.parent = args[0]
@@ -84,10 +85,15 @@ class Tab_Stats:
 					
 					if (config.USE_SERIAL):
 						# Only do this every so often...
-						if (self.rootParent.frameNum == 0):
+						if (self.frameNum == 0):
 							# Send query to Teensy to get current battery voltage:
 							self.rootParent.ser.write("volts\n")
 							# (value is returned and set via page-events queue)
+							
+							
+						elif (self.frameNum == 15):
+							self.frameNum = -1;
+						self.frameNum++;						
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
