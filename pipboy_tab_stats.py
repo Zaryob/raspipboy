@@ -80,6 +80,11 @@ class Tab_Stats:
 					newVal = self.maxVal
 					if (config.USE_SERIAL):
 						# Get current battery voltage from Teensy:
+						
+						self.rootParent.ser.write("battery\n")
+						batVolts = self.rootParent.ser.readline()
+						batVolts = batVolts.strip()
+						
 						line = ""
 						with open('/proc/net/wireless', 'r') as f:
 							f.readline()
@@ -91,6 +96,7 @@ class Tab_Stats:
 						token = tokens[3]
 						token = string.replace(token, ".", "")
 						newVal = string.atoi(token)
+						
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
 					if (config.USE_INTERNET):
