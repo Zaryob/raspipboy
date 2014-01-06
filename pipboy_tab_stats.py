@@ -66,6 +66,8 @@ class Tab_Stats:
 			minVal = 0
 			maxVal = 100
 			
+			setVal = maxVal
+			
 			def __init__(self, *args, **kwargs):
 				self.parent = args[0]
 				self.rootParent = self.parent.rootParent
@@ -77,29 +79,14 @@ class Tab_Stats:
 				newVal = -1
 				
 				if (self.name == 'BAT'):	# Show Battery status
-					newVal = self.maxVal
+				
+					newVal = self.setVal
+					
 					if (config.USE_SERIAL):
-						# Get current battery voltage from Teensy:
-						
+						# Send query to Teensy to get current battery voltage:
 						self.rootParent.ser.write("battery\n")
-						batVolts = self.rootParent.ser.readline()
-						batVolts = batVolts.strip()
-						
-						print batVolts
-						'''
-						line = ""
-						with open('/proc/net/wireless', 'r') as f:
-							f.readline()
-							f.readline()
-							line = f.readline()
-						
-						# Get 'Quality:Level' value:
-						tokens = string.split(line)
-						token = tokens[3]
-						token = string.replace(token, ".", "")
-						newVal = string.atoi(token)
-						'''
-						
+						# (value is returned and set via page-events queue)
+				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
 					if (config.USE_INTERNET):
@@ -207,7 +194,9 @@ class Tab_Stats:
 				True
 			# Consume events passed to this sub-page:
 			def ctrlEvents(self,events):
-				True
+				
+				if (self.name == 'BAT'):	# Get battery-status events
+					newVal = self.setVal
 		
 		######################################
 		
