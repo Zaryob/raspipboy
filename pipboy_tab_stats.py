@@ -204,7 +204,7 @@ class Tab_Stats:
 				if (self.name == 'BAT'):	# Get battery-status events
 					for event in events:
 						if (type(event) is str) and (event.startswith('volts')):
-							print event
+							print event;
 							tokens = string.split(event);
 							
 							batVolts = float(tokens[1]);
