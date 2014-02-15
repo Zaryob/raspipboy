@@ -59,7 +59,7 @@ class Engine:
 				
 				if (ident != "PIPBOY"):
 					print "  Pip-Boy controls not found on serial-port!"	
-					config.USE_SERIAL = False
+					#config.USE_SERIAL = False
 				
 			except:
 				print ("* Failed to access serial! Ignoring serial port")
