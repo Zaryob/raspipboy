@@ -60,7 +60,7 @@ if(USE_SERIAL):
 	try:
 		print ("Init serial: %s" %(SERIALPORT))
 		self.ser = serial.Serial(SERIALPORT, 9600)
-		self.ser.timeout=1
+		self.ser.timeout=10
 		
 		print "  Requesting device identity..."
 		self.ser.write("identify\n")
