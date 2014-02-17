@@ -92,6 +92,20 @@ class Tab_Stats:
 						elif (self.frameNum == 15):
 							self.frameNum = -1;
 						self.frameNum += 1;
+						
+				if (self.name == 'TMP'):	# Show Temperature
+				
+					newVal = self.setVal
+					
+					if (config.USE_SERIAL):
+						# Only do this every so often...
+						if (self.frameNum == 0):
+							# Send query to Teensy to get current temperature:
+							self.rootParent.ser.write("temp\n")
+							# (value is returned and set via page-events queue)
+						elif (self.frameNum == 15):
+							self.frameNum = -1;
+						self.frameNum += 1;
 				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
