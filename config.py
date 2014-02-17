@@ -65,7 +65,7 @@ if(USE_SERIAL):
 		print "  Requesting device identity..."
 		ser.write("identify\n")
 		
-		ident = self.ser.readline()
+		ident = ser.readline()
 		ident = ident.strip()
 		print ("    Value: %s" %(str(ident)))
 		
