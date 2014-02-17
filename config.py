@@ -44,7 +44,7 @@ SERIALPORT = '/dev/teensy'
 #SERIALPORT = '/dev/ttyAMA0'
 
 # Test serial-controller:
-if config.USE_SERIAL:
+if USE_SERIAL:
 	# Load libraries used by serial device, if present:
 	def loadSerial():
 		try:
@@ -53,8 +53,28 @@ if config.USE_SERIAL:
 		except:
 			# Deactivate serial-related systems if load failed:
 			print "SERIAL LIBRARY NOT FOUND!"
-			config.USE_SERIAL = False
+			USE_SERIAL = False
 	loadSerial()
+if(USE_SERIAL):
+	try:
+		print ("Init serial: %s" %(SERIALPORT))
+		self.ser = serial.Serial(SERIALPORT, 9600)
+		self.ser.timeout=1
+		
+		print "  Requesting device identity..."
+		self.ser.write("identify\n")
+		ident = self.ser.readline()
+		ident = ident.strip()
+		print ("    Value: %s" %(str(ident)))
+		
+		if (ident != "PIPBOY"):
+			print "  Pip-Boy controls not found on serial-port!"	
+			#config.USE_SERIAL = False
+		
+	except:
+		print ("* Failed to access serial! Ignoring serial port")
+		USE_SERIAL = False
+print ("SERIAL: %s" %(USE_SERIAL))
 
 # Test camera:
 if USE_CAMERA:
