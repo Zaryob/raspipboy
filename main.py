@@ -46,27 +46,6 @@ class Engine:
 	def __init__(self, *args, **kwargs):
 		
 		if(config.USE_SERIAL):
-			try:
-				print ("Init serial: %s" %(config.SERIALPORT))
-				self.ser = serial.Serial(config.SERIALPORT, 9600)
-				self.ser.timeout=1
-				
-				print "  Requesting device identity..."
-				self.ser.write("identify\n")
-				ident = self.ser.readline()
-				ident = ident.strip()
-				print ("    Value: %s" %(str(ident)))
-				
-				if (ident != "PIPBOY"):
-					print "  Pip-Boy controls not found on serial-port!"	
-					#config.USE_SERIAL = False
-				
-			except:
-				print ("* Failed to access serial! Ignoring serial port")
-				config.USE_SERIAL = False
-		print ("SERIAL: %s" %(config.USE_SERIAL))
-		
-		if(config.USE_SERIAL):
 			True#self.ser.write("gaugeMode=2")
 		
 		print "Init pygame:"
