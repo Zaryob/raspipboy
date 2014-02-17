@@ -12,7 +12,7 @@ from pipboy_tab_items import *
 from pipboy_tab_data import *
 from pipboy_cmdline import *
 
-
+# Load optional libraries:
 if config.USE_SERIAL:
 	# Load libraries used by serial device, if present:
 	def loadSerial():
@@ -24,7 +24,6 @@ if config.USE_SERIAL:
 			print "SERIAL LIBRARY NOT FOUND!"
 			config.USE_SERIAL = False
 	loadSerial()
-
 if config.USE_CAMERA:
 	from pipboy_camera import *
 
