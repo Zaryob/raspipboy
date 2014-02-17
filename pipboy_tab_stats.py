@@ -92,8 +92,8 @@ class Tab_Stats:
 						elif (self.frameNum == 15):
 							self.frameNum = -1;
 						self.frameNum += 1;
-						
-				if (self.name == 'TMP'):	# Show Temperature
+				
+				elif (self.name == 'TMP'):	# Show Temperature
 				
 					newVal = self.setVal
 					
@@ -218,14 +218,23 @@ class Tab_Stats:
 				if (self.name == 'BAT'):	# Get battery-status events
 					for event in events:
 						if (type(event) is str) and (event.startswith('volts')):
-							print event;
+							print event; # DEBUG PRINT
 							tokens = string.split(event);
 							
 							batVolts = float(tokens[1]);
 							minVolts = 2.44;
 							maxVolts = 3.84;
 							self.setVal = int(100 * ((batVolts - minVolts) / (maxVolts - minVolts)));
-				elif (self.name == 'BAT'):
+				elif (self.name == 'TMP'):	# Get temperature-status events
+					for event in events:
+						if (type(event) is str) and (event.startswith('temp')):
+							print event; # DEBUG PRINT
+							tokens = string.split(event);
+							
+							tempVal = float(tokens[1]);
+							minTemp = -40.0;
+							maxTemp = 100.0;
+							self.setVal = int(100 * ((tempVal - minTemp) / (maxTemp - minTemp)));
 		
 		######################################
 		
