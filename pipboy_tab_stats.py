@@ -225,6 +225,7 @@ class Tab_Stats:
 							minVolts = 2.44;
 							maxVolts = 3.84;
 							self.setVal = int(100 * ((batVolts - minVolts) / (maxVolts - minVolts)));
+				elif (self.name == 'BAT'):
 		
 		######################################
 		
