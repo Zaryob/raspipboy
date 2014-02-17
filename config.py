@@ -59,12 +59,11 @@ if USE_SERIAL:
 if(USE_SERIAL):
 	try:
 		print ("Init serial: %s" %(SERIALPORT))
-		ser = serial.Serial(SERIALPORT, 9600)
-		ser.timeout=1
+		self.ser = serial.Serial(SERIALPORT, 9600)
+		self.ser.timeout=1
 		
 		print "  Requesting device identity..."
-		ser.write("identify\n")
-		
+		self.ser.write("identify\n")
 		ident = self.ser.readline()
 		ident = ident.strip()
 		print ("    Value: %s" %(str(ident)))
