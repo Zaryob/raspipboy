@@ -43,7 +43,20 @@ SERIALPORT = '/dev/teensy'
 # Pi GPIO serial:
 #SERIALPORT = '/dev/ttyAMA0'
 
+# Test serial-controller:
+if config.USE_SERIAL:
+	# Load libraries used by serial device, if present:
+	def loadSerial():
+		try:
+			global serial
+			import serial
+		except:
+			# Deactivate serial-related systems if load failed:
+			print "SERIAL LIBRARY NOT FOUND!"
+			config.USE_SERIAL = False
+	loadSerial()
 
+# Test camera:
 if USE_CAMERA:
 	# Is there a camera module connected?
 	def hasCamera():
