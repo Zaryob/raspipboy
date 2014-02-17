@@ -12,7 +12,7 @@ from pipboy_tab_items import *
 from pipboy_tab_data import *
 from pipboy_cmdline import *
 
-# Load optional libraries:
+# Load optional libraries: (these will have been tested by config.py)
 if config.USE_SERIAL:
 	global serial
 	import serial
