@@ -250,7 +250,7 @@ class Tab_Stats:
 			# Set up list of sub-pages:
 			Condition = self.Condition
 			StatLine = self.StatLine
-			self.subPages = [Condition(self),StatLine(self,'RAD'),StatLine(self,'EFF'),StatLine(self,'WAN'),StatLine(self,'GPS'),StatLine(self,'BAT')]
+			self.subPages = [Condition(self),StatLine(self,'RAD'),StatLine(self,'TMP'),StatLine(self,'WAN'),StatLine(self,'GPS'),StatLine(self,'BAT')]
 			
 			# Generate list-image for each sub-page:
 			for thisPageNum in range(0,len(self.subPages)):
