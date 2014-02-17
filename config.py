@@ -48,6 +48,7 @@ if USE_SERIAL:
 	# Load libraries used by serial device, if present:
 	def loadSerial():
 		try:
+			print ("Importing Serial libraries...")
 			global serial
 			import serial
 		except:
