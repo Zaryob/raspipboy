@@ -46,6 +46,7 @@ class Engine:
 	def __init__(self, *args, **kwargs):
 		
 		if(config.USE_SERIAL):
+			self.ser = config.ser
 			True#self.ser.write("gaugeMode=2")
 		
 		print "Init pygame:"
