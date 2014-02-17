@@ -431,6 +431,8 @@ class Engine:
 								moveVals[1] -= serMouseDist
 							elif (serBuffer.startswith('volts')):	# Battery Voltage
 								pageEvents.append(serBuffer)
+							elif (serBuffer.startswith('temp')):	# Temperature
+								pageEvents.append(serBuffer)
 							
 							# Clear serial buffer:
 							self.serBuffer = ""
