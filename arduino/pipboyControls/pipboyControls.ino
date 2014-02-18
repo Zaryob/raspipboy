@@ -26,8 +26,22 @@ int tabNum = 0;
 int modeNum = 0;
 boolean torchActive = false;
 
-// Used to turn sound/screen on/off:
-int powerPin = 10;
+// Pin used to turn sound/screen on/off:
+int powerPin = 45;
+
+// Battery-voltage analog-read pin
+//  (connected to 2Kohm/1Kohm voltage-divider)
+int battVoltsAPin = A0;  // Analog pin (F0)
+int battVoltsDPin = 38;  // Digital address for same pin
+float maxVolts = 7.68; // Maximum voltage-divider input-value (corresponds to 2.56V reference-voltage)
+
+// Analog-read info for temperature sensor:
+//  (I'm using a TMP36 sensor component)
+int tempAPin = A1;  // Analog pin (F0)
+int tempDPin = 39;  // Digital address for same pin
+float minTemp = -40.0;
+float maxTemp = 125.0;
+int maxTempmVolts = 2000;
 
 unsigned long keyPressDelay = 500;
 
@@ -68,10 +82,7 @@ String inputString = "";
 
 void setup() 
 {
-  // POWER-SAVING...
-  // Turn off Analog-Digital converter:
-  ADCSRA = 0;
-  // Set all pins to output by default:
+  // POWER-SAVING: Set all pins to output by default:
   for (int n = 0; n < 46; n++)
   {
     pinMode(n, OUTPUT);
@@ -80,6 +91,15 @@ void setup()
   // Set up serial bits:
   Serial.begin(38400);
   inputString.reserve(200);
+  
+  // Set up analog-read pins:
+  analogReference(INTERNAL2V56);
+  pinMode(battVoltsDPin, INPUT);
+  pinMode(tempDPin, INPUT);
+  maxVolts /= 100.0;
+  maxTemp /= 100.0;
+  
+//  battVal = map (battVal,0,1023,0,100);
   
   // Set up input-pins:
   for (int n = 0; n < 4; n++)
@@ -185,6 +205,40 @@ void loop()
       {
         String valStr = inputString.substring(10);
         gaugeMode = valStr.toInt();
+      }
+      // Read battery voltage:
+      else if (inputString.startsWith("volts"))
+      {
+        analogRead(battVoltsAPin); delay(100);
+        int battVal = analogRead(battVoltsAPin); delay(100);
+        battVal = map (battVal,0,1023,0,100);
+        float battVolts = (maxVolts * battVal);
+        
+        Serial.print("volts ");
+        Serial.println(battVolts);
+      }
+      // Read temperature:
+      else if (inputString.startsWith("temp"))
+      {
+        analogRead(tempAPin); delay(100);
+        
+        int tempVal = 0;
+        for (int n = 0; n < 32; n += 1)
+        {
+          tempVal += (analogRead(tempAPin));    // Read analog value
+//          Serial.println(tempVal);
+          delay(20);
+        }
+        tempVal /= 32;
+        Serial.print("inval: ");Serial.println(tempVal);
+        tempVal = map (tempVal,0,1023,0,2560); // Convert to millivolts
+        Serial.print("mv: ");Serial.println(tempVal);
+        tempVal = map (tempVal,0,maxTempmVolts,0,100);
+        //minTemp
+        float tempDegrees = minTemp + (maxTemp * tempVal);
+        Serial.print("temp ");
+        Serial.println(tempDegrees);
+        Serial.println(tempVal);
       }
       // Go into low-power standby-mode:
       else if (inputString.startsWith("sleep"))
