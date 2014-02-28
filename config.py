@@ -10,7 +10,7 @@ USE_SOUND = True		# Play sounds via RasPi's current sound-source
 USE_CAMERA = True		# Use RasPi camera-module as V.A.T.S
 USE_SERIAL = True		# Communicate with custom serial-port controller
 
-QUICKLOAD = True		# If true, commandline-startup bits aren't rendered
+QUICKLOAD = False		# If true, commandline-startup bits aren't rendered
 FORCE_DOWNLOAD = False	# Don't use cached map-data, if online
 
 # Render screen-objects at this size - smaller is faster
