@@ -232,8 +232,8 @@ class Tab_Stats:
 							tokens = string.split(event);
 							
 							tempVal = float(tokens[1]);
-							minTemp = -40.0;
-							maxTemp = 100.0;
+							minTemp = 0.0;
+							maxTemp = 125.0;
 							self.setVal = int(100 * ((tempVal - minTemp) / (maxTemp - minTemp)));
 		
 		######################################
