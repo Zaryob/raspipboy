@@ -223,7 +223,7 @@ class Tab_Stats:
 							
 							batVolts = float(tokens[1]);
 							minVolts = 2.44;
-							maxVolts = 3.84;
+							maxVolts = 7.68;
 							self.setVal = int(100 * ((batVolts - minVolts) / (maxVolts - minVolts)));
 				elif (self.name == 'TMP'):	# Get temperature-status events
 					for event in events:
