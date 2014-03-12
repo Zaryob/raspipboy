@@ -30,18 +30,16 @@ boolean torchActive = false;
 int powerPin = 45;
 
 // Battery-voltage analog-read pin
-//  (connected to 2Kohm/1Kohm voltage-divider)
+//  (connected to 20Kohm/10Kohm voltage-divider)
+int battVoltsActivePin = 44; // Turn voltage-divider on/off
 int battVoltsAPin = A0;  // Analog pin (F0)
 int battVoltsDPin = 38;  // Digital address for same pin
 float maxVolts = 7.68; // Maximum voltage-divider input-value (corresponds to 2.56V reference-voltage)
 
 // Analog-read info for temperature sensor:
 //  (I'm using a TMP36 sensor component)
-int tempAPin = A1;  // Analog pin (F0)
+int tempAPin = A1;  // Analog pin (F1)
 int tempDPin = 39;  // Digital address for same pin
-float minTemp = -40.0;
-float maxTemp = 125.0;
-int maxTempmVolts = 2000;
 
 unsigned long keyPressDelay = 500;
 
@@ -97,11 +95,8 @@ void setup()
   pinMode(battVoltsDPin, INPUT);
   pinMode(tempDPin, INPUT);
   maxVolts /= 100.0;
-  maxTemp /= 100.0;
   
-//  battVal = map (battVal,0,1023,0,100);
-  
-  // Set up input-pins:
+  // Set up input-pins, with pullup resistors enabled:
   for (int n = 0; n < 4; n++)
   {
     pinMode(encoderPins[n], INPUT_PULLUP);
@@ -206,39 +201,56 @@ void loop()
         String valStr = inputString.substring(10);
         gaugeMode = valStr.toInt();
       }
+
       // Read battery voltage:
       else if (inputString.startsWith("volts"))
       {
-        analogRead(battVoltsAPin); delay(100);
-        int battVal = analogRead(battVoltsAPin); delay(100);
+        // Activate the voltage-divider:
+        digitalWrite(battVoltsActivePin, HIGH);
+        
+        // Initial read to clear bad volts...
+        analogRead(battVoltsAPin); delay(20);
+        
+        // Take average of lots of readings:
+        int16_t battVal = 0;
+        for (int n = 0; n < 32; n += 1)
+        {
+          battVal += (analogRead(battVoltsAPin));    // Read analog value
+          delay(20);
+        }
+        battVal /= 32;
+        
+        digitalWrite(battVoltsActivePin, LOW);
+        
         battVal = map (battVal,0,1023,0,100);
         float battVolts = (maxVolts * battVal);
         
         Serial.print("volts ");
         Serial.println(battVolts);
       }
+
       // Read temperature:
       else if (inputString.startsWith("temp"))
       {
-        analogRead(tempAPin); delay(100);
+        // Initial read to clear bad volts...
+        analogRead(tempAPin); delay(20);
         
-        int tempVal = 0;
+        // Take average of lots of readings:
+        int16_t tempVal = 0;
         for (int n = 0; n < 32; n += 1)
         {
           tempVal += (analogRead(tempAPin));    // Read analog value
-//          Serial.println(tempVal);
-          delay(20);
+          delay(10);
         }
         tempVal /= 32;
-        Serial.print("inval: ");Serial.println(tempVal);
+
+//        Serial.print("\nVal: ");Serial.println(tempVal);
         tempVal = map (tempVal,0,1023,0,2560); // Convert to millivolts
-        Serial.print("mv: ");Serial.println(tempVal);
-        tempVal = map (tempVal,0,maxTempmVolts,0,100);
-        //minTemp
-        float tempDegrees = minTemp + (maxTemp * tempVal);
+//        Serial.print("mv: ");Serial.println(tempVal);
+        
+        float tempDegrees = 0.1 * (tempVal - 500);
         Serial.print("temp ");
         Serial.println(tempDegrees);
-        Serial.println(tempVal);
       }
       // Go into low-power standby-mode:
       else if (inputString.startsWith("sleep"))
@@ -349,9 +361,11 @@ void loop()
       Serial.println("lightoff");
     }
 
-    // Wait half a second for Pi to finish redrawing screen before changing LEDs:
-    delay(500);
-
+    // Wait for Pi to finish redrawing bright screen before changing LEDs...
+    if (torchActive)
+    {
+      delay(400);
+    }
     digitalWrite(ledPins[3], torchActive);
   }
   
