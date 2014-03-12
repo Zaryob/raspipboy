@@ -63,7 +63,7 @@ if(USE_SERIAL):
 		ser.timeout=1
 		
 		print "  Requesting device identity..."
-		ser.write("identify\n")
+		ser.write("\nidentify\n")
 		
 		ident = ser.readline()
 		ident = ident.strip()
