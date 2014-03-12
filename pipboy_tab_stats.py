@@ -94,8 +94,8 @@ class Tab_Stats:
 							token = tokens[3]
 							token = string.replace(token, ".", "")
 							newVal = string.atoi(token)
-							except:
-								pass
+						except:
+							pass
 				else:
 					newVal = self.minVal
 				
