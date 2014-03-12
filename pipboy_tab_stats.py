@@ -66,6 +66,9 @@ class Tab_Stats:
 			minVal = 0
 			maxVal = 100
 			
+			setVal = maxVal
+			frameNum = 0
+			
 			def __init__(self, *args, **kwargs):
 				self.parent = args[0]
 				self.rootParent = self.parent.rootParent
@@ -77,7 +80,33 @@ class Tab_Stats:
 				newVal = -1
 				
 				if (self.name == 'BAT'):	# Show Battery status
-					newVal = self.maxVal
+				
+					newVal = self.setVal
+					
+					if (config.USE_SERIAL):
+						# Only do this every so often...
+						if (self.frameNum == 0):
+							# Send query to Teensy to get current battery voltage:
+							self.rootParent.ser.write("volts\n")
+							# (value is returned and set via page-events queue)
+						elif (self.frameNum == 15):
+							self.frameNum = -1;
+						self.frameNum += 1;
+				
+				elif (self.name == 'TMP'):	# Show Temperature
+				
+					newVal = self.setVal
+					
+					if (config.USE_SERIAL):
+						# Only do this every so often...
+						if (self.frameNum == 0):
+							# Send query to Teensy to get current temperature:
+							self.rootParent.ser.write("temp\n")
+							# (value is returned and set via page-events queue)
+						elif (self.frameNum == 15):
+							self.frameNum = -1;
+						self.frameNum += 1;
+				
 				elif (self.name == 'WAN'):	# Show WiFi signal-level
 					newVal = 0
 					if (config.USE_INTERNET):
@@ -188,7 +217,28 @@ class Tab_Stats:
 				True
 			# Consume events passed to this sub-page:
 			def ctrlEvents(self,events):
-				True
+				
+				if (self.name == 'BAT'):	# Get battery-status events
+					for event in events:
+						if (type(event) is str) and (event.startswith('volts')):
+							print event; # DEBUG PRINT
+							tokens = string.split(event);
+							
+							batVolts = float(tokens[1]);
+							minVolts = 6.30;
+							maxVolts = 7.68;
+							self.setVal = int(100 * ((batVolts - minVolts) / (maxVolts - minVolts)));
+				elif (self.name == 'TMP'):	# Get temperature-status events
+					for event in events:
+						if (type(event) is str) and (event.startswith('temp')):
+							print event; # DEBUG PRINT
+							tokens = string.split(event);
+							
+							tempVal = float(tokens[1]);
+							minTemp = -40.0;
+							maxTemp = 125.0;
+							self.setVal = tempVal;
+							#int(100 * ((tempVal - minTemp) / (maxTemp - minTemp)));
 		
 		######################################
 		
@@ -204,7 +254,7 @@ class Tab_Stats:
 			# Set up list of sub-pages:
 			Condition = self.Condition
 			StatLine = self.StatLine
-			self.subPages = [Condition(self),StatLine(self,'RAD'),StatLine(self,'EFF'),StatLine(self,'WAN'),StatLine(self,'GPS'),StatLine(self,'BAT')]
+			self.subPages = [Condition(self),StatLine(self,'RAD'),StatLine(self,'TMP'),StatLine(self,'BAT'),StatLine(self,'WAN'),StatLine(self,'GPS')]
 			
 			# Generate list-image for each sub-page:
 			for thisPageNum in range(0,len(self.subPages)):

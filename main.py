@@ -12,19 +12,10 @@ from pipboy_tab_items import *
 from pipboy_tab_data import *
 from pipboy_cmdline import *
 
-
+# Load optional libraries: (these will have been tested by config.py)
 if config.USE_SERIAL:
-	# Load libraries used by serial device, if present:
-	def loadSerial():
-		try:
-			global serial
-			import serial
-		except:
-			# Deactivate serial-related systems if load failed:
-			print "SERIAL LIBRARY NOT FOUND!"
-			config.USE_SERIAL = False
-	loadSerial()
-
+	global serial
+	import serial
 if config.USE_CAMERA:
 	from pipboy_camera import *
 
@@ -46,27 +37,7 @@ class Engine:
 	def __init__(self, *args, **kwargs):
 		
 		if(config.USE_SERIAL):
-			try:
-				print ("Init serial: %s" %(config.SERIALPORT))
-				self.ser = serial.Serial(config.SERIALPORT, 9600)
-				self.ser.timeout=1
-				
-				print "  Requesting device identity..."
-				self.ser.write("identify\n")
-				ident = self.ser.readline()
-				ident = ident.strip()
-				print ("    Value: %s" %(str(ident)))
-				
-				if (ident != "PIPBOY"):
-					print "  Pip-Boy controls not found on serial-port!"	
-					config.USE_SERIAL = False
-				
-			except:
-				print ("* Failed to access serial! Ignoring serial port")
-				config.USE_SERIAL = False
-		print ("SERIAL: %s" %(config.USE_SERIAL))
-		
-		if(config.USE_SERIAL):
+			self.ser = config.ser
 			True#self.ser.write("gaugeMode=2")
 		
 		print "Init pygame:"
@@ -449,6 +420,10 @@ class Engine:
 								moveVals[1] += serMouseDist
 							elif (serBuffer == 'down'):	# Mouse down
 								moveVals[1] -= serMouseDist
+							elif (serBuffer.startswith('volts')):	# Battery Voltage
+								pageEvents.append(serBuffer)
+							elif (serBuffer.startswith('temp')):	# Temperature
+								pageEvents.append(serBuffer)
 							
 							# Clear serial buffer:
 							self.serBuffer = ""
