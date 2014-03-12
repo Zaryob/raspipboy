@@ -112,16 +112,19 @@ class Tab_Stats:
 					if (config.USE_INTERNET):
 						# Get relevant line from proc:
 						line = ""
-						with open('/proc/net/wireless', 'r') as f:
-							f.readline()
-							f.readline()
-							line = f.readline()
+						try:
+							with open('/proc/net/wireless', 'r') as f:
+								f.readline()
+								f.readline()
+								line = f.readline()
 						
-						# Get 'Quality:Level' value:
-						tokens = string.split(line)
-						token = tokens[3]
-						token = string.replace(token, ".", "")
-						newVal = string.atoi(token)
+							# Get 'Quality:Level' value:
+							tokens = string.split(line)
+							token = tokens[3]
+							token = string.replace(token, ".", "")
+							newVal = string.atoi(token)
+						except:
+							pass
 				else:
 					newVal = self.minVal
 				
