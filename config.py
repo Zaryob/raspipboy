@@ -123,7 +123,7 @@ if USE_INTERNET:
 	def internet_on():
 		try:
 			# Can we access this Google address?
-			response=urllib2.urlopen('http://8.8.8.8',timeout=1)
+			response=urllib2.urlopen('http://www.google.com',timeout=5)
 			return True
 		except urllib2.URLError as err: pass
 		return False
