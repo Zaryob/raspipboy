@@ -92,7 +92,7 @@ class Engine:
         # Scanlines:
         scanline = config.IMAGES["scanline"]
         lineCount = 60 # 48 60 80
-        lineHeight = config.HEIGHT / lineCount
+        lineHeight = int(config.HEIGHT / lineCount)
         scanline = pygame.transform.smoothscale (scanline, (config.WIDTH, lineHeight))
         
         self.scanLines = pygame.Surface(self.canvasSize)
@@ -119,11 +119,11 @@ class Engine:
         
         # Set up data for generating overlay frames
         distortLine = config.IMAGES["distort"]
-        distortLineHeight = (config.HEIGHT / 4)
+        distortLineHeight = int(config.HEIGHT / 4)
         distortLine = pygame.transform.smoothscale (distortLine, (config.WIDTH, distortLineHeight))
         distortLine = distortLine.convert()
         distortY = -distortLineHeight
-        distortSpeed = (config.HEIGHT / 40)
+        distortSpeed = int(config.HEIGHT / 40)
         self.overlayFrames = []
         
         print("START")

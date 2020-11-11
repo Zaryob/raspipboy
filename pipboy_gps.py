@@ -44,12 +44,12 @@ class GpsModuleClass:
         url = 'http://maps.google.com/maps/api/geocode/json?' + urllib.parse.urlencode( urlParams )
         print(url)
         response = urllib.request.urlopen( url )
-        responseBody = response.read()
+        responseBody = response.read().decode("utf-8")
         body = io.StringIO( responseBody )
         result = json.load( body )
 
         if 'status' not in result or result['status'] != 'OK':
-            return None
+            return None, None
         else:
             return result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
     
