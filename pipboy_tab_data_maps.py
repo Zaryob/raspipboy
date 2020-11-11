@@ -79,15 +79,15 @@ class Mode_Map:
             self.mapZoom = 18
             
             self.images = {
-            	"door":		pygame.image.load('images/mapmarkers/icon_local_door.png'),
+                "door":        pygame.image.load('images/mapmarkers/icon_local_door.png'),
             }
             
             self.places = [
-            	{'name':'The Chandlers', 'icon':'door', 'lat':53.79434365352854, 'lon':-1.534639431799627},
-            	{'name':'The Chandlers', 'icon':'door', 'lat':53.79440308538747, 'lon':-1.534735671499546},
-            	{'name':'The Chandlers', 'icon':'door', 'lat':53.79425970871591, 'lon':-1.534675876957149},
-            	{'name':'The Chandlers', 'icon':'door', 'lat':53.79425970871591, 'lon':-1.534675876957149},
-            	{'name':'The Chandlers', 'icon':'door', 'lat':53.79427513360326, 'lon':-1.534645089591352},
+                {'name':'The Chandlers', 'icon':'door', 'lat':53.79434365352854, 'lon':-1.534639431799627},
+                {'name':'The Chandlers', 'icon':'door', 'lat':53.79440308538747, 'lon':-1.534735671499546},
+                {'name':'The Chandlers', 'icon':'door', 'lat':53.79425970871591, 'lon':-1.534675876957149},
+                {'name':'The Chandlers', 'icon':'door', 'lat':53.79425970871591, 'lon':-1.534675876957149},
+                {'name':'The Chandlers', 'icon':'door', 'lat':53.79427513360326, 'lon':-1.534645089591352},
             ]
 
         else:
@@ -101,23 +101,23 @@ class Mode_Map:
             
             # Load map-marker icons:
             self.images = {
-            	"door":				pygame.image.load('images/mapmarkers/icon_local_door.png'),
-            	"encampment":		pygame.image.load('images/mapmarkers/icon_map_encampment.png'),
-            	"military":			pygame.image.load('images/mapmarkers/icon_map_military.png'),
-            	"office":			pygame.image.load('images/mapmarkers/icon_map_office.png'),
-            	"urban":			pygame.image.load('images/mapmarkers/icon_map_ruins_urban.png'),
-            	"vault":			pygame.image.load('images/mapmarkers/icon_map_vault.png'),
-            	"cave":				pygame.image.load('images/mapmarkers/icon_map_cave.png'),
-            	"factory":			pygame.image.load('images/mapmarkers/icon_map_factory.png'),
-            	"monument":			pygame.image.load('images/mapmarkers/icon_map_monument.png'),
-            	"ruins_sewer":		pygame.image.load('images/mapmarkers/icon_map_ruins_sewer.png'),
-            	"settlement":		pygame.image.load('images/mapmarkers/icon_map_settlement.png'),
-            	"city":				pygame.image.load('images/mapmarkers/icon_map_city.png'),
-            	"metro":			pygame.image.load('images/mapmarkers/icon_map_metro.png'),
-            	"natural_landmark":	pygame.image.load('images/mapmarkers/icon_map_natural_landmark.png'),
-            	"ruins_town":		pygame.image.load('images/mapmarkers/icon_map_ruins_town.png'),
-            	"ruins_urban":		pygame.image.load('images/mapmarkers/icon_map_ruins_urban.png'),
-            	"undiscovered":		pygame.image.load('images/mapmarkers/icon_map_undiscovered.png'),
+                "door":                pygame.image.load('images/mapmarkers/icon_local_door.png'),
+                "encampment":        pygame.image.load('images/mapmarkers/icon_map_encampment.png'),
+                "military":            pygame.image.load('images/mapmarkers/icon_map_military.png'),
+                "office":            pygame.image.load('images/mapmarkers/icon_map_office.png'),
+                "urban":            pygame.image.load('images/mapmarkers/icon_map_ruins_urban.png'),
+                "vault":            pygame.image.load('images/mapmarkers/icon_map_vault.png'),
+                "cave":                pygame.image.load('images/mapmarkers/icon_map_cave.png'),
+                "factory":            pygame.image.load('images/mapmarkers/icon_map_factory.png'),
+                "monument":            pygame.image.load('images/mapmarkers/icon_map_monument.png'),
+                "ruins_sewer":        pygame.image.load('images/mapmarkers/icon_map_ruins_sewer.png'),
+                "settlement":        pygame.image.load('images/mapmarkers/icon_map_settlement.png'),
+                "city":                pygame.image.load('images/mapmarkers/icon_map_city.png'),
+                "metro":            pygame.image.load('images/mapmarkers/icon_map_metro.png'),
+                "natural_landmark":    pygame.image.load('images/mapmarkers/icon_map_natural_landmark.png'),
+                "ruins_town":        pygame.image.load('images/mapmarkers/icon_map_ruins_town.png'),
+                "ruins_urban":        pygame.image.load('images/mapmarkers/icon_map_ruins_urban.png'),
+                "undiscovered":        pygame.image.load('images/mapmarkers/icon_map_undiscovered.png'),
             }
         
         # Scale images down to 32x32:
@@ -184,34 +184,34 @@ class Mode_Map:
         else:
             self.mapLocation = self.rootParent.gpsModule.locality
             lat = self.rootParent.gpsModule.localityLat
-            lon = self.rootParent.gpsModule.localityLon			
+            lon = self.rootParent.gpsModule.localityLon            
             
         # Load cached data, if found:
         if (not config.FORCE_DOWNLOAD) and (os.path.exists(self.dataFilename)) and (os.path.exists(self.mapFilename)):
             print(("  Reading data: %s" %(self.dataFilename)))
             with open(self.dataFilename, 'r') as f:
-            	savedVersion = eval(f.readline())
-            	savedMapLocation = (f.readline()).rstrip()
-            	
-            	# Only use coordinates-cache file if its version matches current version:
-            	if (savedVersion == self.saveVersion):
-            		if (savedMapLocation == self.mapLocation):
-            			print("  Map-file is up-to-date, no need to download")
-            			self.minLat = eval(f.readline())
-            			self.minLon = eval(f.readline())
-            			self.maxLat = eval(f.readline())
-            			self.maxLon = eval(f.readline())
-            			
-            			self.places = []
-            			for item in f.readlines():
-            				self.places.append(eval(item))
-            			#print "YAY!"
-            			#print self.places
-            			
-            			doDownload = False
-            		True
-            	else:
-            		print ("  Invalid cache-version, ignoring file")
+                savedVersion = eval(f.readline())
+                savedMapLocation = (f.readline()).rstrip()
+                
+                # Only use coordinates-cache file if its version matches current version:
+                if (savedVersion == self.saveVersion):
+                    if (savedMapLocation == self.mapLocation):
+                        print("  Map-file is up-to-date, no need to download")
+                        self.minLat = eval(f.readline())
+                        self.minLon = eval(f.readline())
+                        self.maxLat = eval(f.readline())
+                        self.maxLon = eval(f.readline())
+                        
+                        self.places = []
+                        for item in f.readlines():
+                            self.places.append(eval(item))
+                        #print "YAY!"
+                        #print self.places
+                        
+                        doDownload = False
+                    True
+                else:
+                    print ("  Invalid cache-version, ignoring file")
         
         if doDownload:
             print("DOWNLOADING:")
@@ -221,20 +221,20 @@ class Mode_Map:
             urllib.request.urlretrieve (mapUrl,self.mapFilename)
             
             if (self.mapType == 1):
-            	# Download a set of places from Google for markers:
-            	self.places = pipboy_places.getPlaces(lat,lon)
+                # Download a set of places from Google for markers:
+                self.places = pipboy_places.getPlaces(lat,lon)
             
             # Work out coordinates for map's corners:
             self.getMapBounds(lat, lon, self.mapZoom, self.mapSize)
             print("  Lat/Lon Min:(%s,%s) Max:(%s,%s)" %(self.minLat,self.minLon,self.maxLat,self.maxLon))
             print("  Writing to file: %s" %(self.dataFilename))
             with open(self.dataFilename, 'w') as f:
-            	f.write("%s\n" %(self.saveVersion))
-            	f.write("%s\n" %(self.mapLocation))
-            	f.write("%s\n%s\n%s\n%s\n" %(repr(self.minLat),repr(self.minLon),repr(self.maxLat),repr(self.maxLon)))				
-            	
-            	for place in self.places:
-            		f.write("%s\n" %(repr(place)))
+                f.write("%s\n" %(self.saveVersion))
+                f.write("%s\n" %(self.mapLocation))
+                f.write("%s\n%s\n%s\n%s\n" %(repr(self.minLat),repr(self.minLon),repr(self.maxLat),repr(self.maxLon)))                
+                
+                for place in self.places:
+                    f.write("%s\n" %(repr(place)))
             
             # Load downloaded image via PIL, and tweak contrast/brightness:
             im = Image.open(self.mapFilename)
@@ -247,30 +247,30 @@ class Mode_Map:
             
             # Add lines to World Map:
             if (self.mapType == 1):
-            	imageSize = self.mapImage.get_width()
-            	stepCount = 16
-            	stepSize = (imageSize / stepCount)
-            	lineWidth = 2
-            	gridPos = stepSize
-            	
-            	# Add large-pixel noise, on two levels of gridding:
-            	for n in [1,2]:
-            		mapArray = pygame.surfarray.pixels3d(self.mapImage)
-            		noisePixSize = (stepSize * n)
-            		noise_small = numpy.random.random((imageSize/noisePixSize,imageSize/noisePixSize)) * 0.6 + 0.5
-            		noise_big = noise_small.repeat(noisePixSize, 0).repeat(noisePixSize, 1)
-            		mapArray *= noise_big[:, :, numpy.newaxis]
+                imageSize = self.mapImage.get_width()
+                stepCount = 16
+                stepSize = (imageSize / stepCount)
+                lineWidth = 2
+                gridPos = stepSize
+                
+                # Add large-pixel noise, on two levels of gridding:
+                for n in [1,2]:
+                    mapArray = pygame.surfarray.pixels3d(self.mapImage)
+                    noisePixSize = (stepSize * n)
+                    noise_small = numpy.random.random((imageSize/noisePixSize,imageSize/noisePixSize)) * 0.6 + 0.5
+                    noise_big = noise_small.repeat(noisePixSize, 0).repeat(noisePixSize, 1)
+                    mapArray *= noise_big[:, :, numpy.newaxis]
             
-            	gridVal = 40
-            	gridColour = (gridVal,gridVal,gridVal)
-            	
-            	while (gridPos < imageSize):
-            		pygame.draw.lines(self.mapImage, gridColour, False, [(0, gridPos), (imageSize, gridPos)], lineWidth)
-            		pygame.draw.lines(self.mapImage, gridColour, False, [(gridPos, 0), (gridPos, imageSize)], lineWidth)
-            		gridPos += stepSize
-            	pygame.draw.rect(self.mapImage, (255,255,255), (0,0,imageSize,imageSize), lineWidth)
-            	print("GRIDDED!")
-            	
+                gridVal = 40
+                gridColour = (gridVal,gridVal,gridVal)
+                
+                while (gridPos < imageSize):
+                    pygame.draw.lines(self.mapImage, gridColour, False, [(0, gridPos), (imageSize, gridPos)], lineWidth)
+                    pygame.draw.lines(self.mapImage, gridColour, False, [(gridPos, 0), (gridPos, imageSize)], lineWidth)
+                    gridPos += stepSize
+                pygame.draw.rect(self.mapImage, (255,255,255), (0,0,imageSize,imageSize), lineWidth)
+                print("GRIDDED!")
+                
             # Save processed image to cache-folder:
             pygame.image.save(self.mapImage, self.mapFilename)
         else:
@@ -339,7 +339,7 @@ class Mode_Map:
             
             # Download map if required:
             if (self.mapImage == 0):
-            	self.getMap()
+                self.getMap()
 
             # Blit map-texture to canvas:
             self.mapCanvas.blit (self.mapImage, (self.viewPosX, self.viewPosY))
@@ -352,16 +352,16 @@ class Mode_Map:
             
             # Draw location-markers:
             for item in self.places:
-            	self.drawMarkerToCanvas (item)
+                self.drawMarkerToCanvas (item)
             
             # Draw cursor-box:
             self.mapCanvas.blit (self.cursorBox, (self.cursorPosX-self.cursorRadius,self.cursorPosY-self.cursorRadius),None,pygame.BLEND_RGB_ADD)
             
             if (self.cursorName != ""):
-            	textImg = config.FONT_LRG.render(self.cursorName, True, config.DRAWCOLOUR, (0, 0, 0))
-            	textX = self.cursorPosX-(textImg.get_width() / 2)
-            	textY = self.cursorPosY+self.cursorRadius+(config.charHeight / 2)
-            	self.mapCanvas.blit(textImg, (textX,textY), None, pygame.BLEND_ADD)
+                textImg = config.FONT_LRG.render(self.cursorName, True, config.DRAWCOLOUR, (0, 0, 0))
+                textX = self.cursorPosX-(textImg.get_width() / 2)
+                textY = self.cursorPosY+self.cursorRadius+(config.charHeight / 2)
+                self.mapCanvas.blit(textImg, (textX,textY), None, pygame.BLEND_ADD)
             
             # Blit to page-canvas:
             self.pageCanvas.blit (self.mapCanvas, (0,0))
@@ -382,46 +382,46 @@ class Mode_Map:
         
         for event in events:
             if (event == 'sel'):
-            	
-            	self.setViewToCurPos()
-            	self.changed = True
+                
+                self.setViewToCurPos()
+                self.changed = True
             elif (type(event) is list):
-            	mx, my, mzoom = event[0], event[1], event[2]
+                mx, my, mzoom = event[0], event[1], event[2]
 
-            	# Mouse acceleration feature:
-            	accelTime = 5000
-            	maxAccel = 400
-            	minAccel = 2
-            	
-            	currentTick = pygame.time.get_ticks()
-            	
-            	if ((currentTick - self.lastMoveTick) > 500):
-            		self.moveStartTick = currentTick
-            	
-            	moveTime = (currentTick - self.moveStartTick)
-            	if (moveTime > accelTime):
-            		moveTime = accelTime
-            	
-            	accelMult = minAccel + ((maxAccel - minAccel) * (moveTime / accelTime))
-            	self.lastMoveTick = currentTick
-            	# End mouse acceleration
-            	
-            	self.cursorPosX += (accelMult * mx)
-            	cursMinX,cursMaxX = (self.cursorPosX-self.cursorRadius),(self.cursorPosX+self.cursorRadius)
-            	if (cursMinX < 0):
-            		self.viewPosX -= (cursMinX)
-            		self.cursorPosX = self.cursorRadius
-            	elif (cursMaxX > self.canvasWidth):
-            		self.viewPosX += (self.canvasWidth - cursMaxX)
-            		self.cursorPosX = (self.canvasWidth - self.cursorRadius)
+                # Mouse acceleration feature:
+                accelTime = 5000
+                maxAccel = 400
+                minAccel = 2
+                
+                currentTick = pygame.time.get_ticks()
+                
+                if ((currentTick - self.lastMoveTick) > 500):
+                    self.moveStartTick = currentTick
+                
+                moveTime = (currentTick - self.moveStartTick)
+                if (moveTime > accelTime):
+                    moveTime = accelTime
+                
+                accelMult = minAccel + ((maxAccel - minAccel) * (moveTime / accelTime))
+                self.lastMoveTick = currentTick
+                # End mouse acceleration
+                
+                self.cursorPosX += (accelMult * mx)
+                cursMinX,cursMaxX = (self.cursorPosX-self.cursorRadius),(self.cursorPosX+self.cursorRadius)
+                if (cursMinX < 0):
+                    self.viewPosX -= (cursMinX)
+                    self.cursorPosX = self.cursorRadius
+                elif (cursMaxX > self.canvasWidth):
+                    self.viewPosX += (self.canvasWidth - cursMaxX)
+                    self.cursorPosX = (self.canvasWidth - self.cursorRadius)
 
-            	self.cursorPosY += (accelMult * my)
-            	cursMinY,cursMaxY = (self.cursorPosY-self.cursorRadius),(self.cursorPosY+self.cursorRadius)
-            	if (cursMinY < 0):
-            		self.viewPosY -= (cursMinY)
-            		self.cursorPosY = self.cursorRadius
-            	elif (cursMaxY > self.canvasHeight):
-            		self.viewPosY += (self.canvasHeight - cursMaxY)
-            		self.cursorPosY = (self.canvasHeight - self.cursorRadius)
-            	
-            	self.changed = True
+                self.cursorPosY += (accelMult * my)
+                cursMinY,cursMaxY = (self.cursorPosY-self.cursorRadius),(self.cursorPosY+self.cursorRadius)
+                if (cursMinY < 0):
+                    self.viewPosY -= (cursMinY)
+                    self.cursorPosY = self.cursorRadius
+                elif (cursMaxY > self.canvasHeight):
+                    self.viewPosY += (self.canvasHeight - cursMaxY)
+                    self.cursorPosY = (self.canvasHeight - self.cursorRadius)
+                
+                self.changed = True

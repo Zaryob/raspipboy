@@ -28,7 +28,7 @@ class Tab_Data:
             pageChanged = self.changed
             self.changed = False
             if(pageChanged):
-            	True				
+                True                
             return self.pageCanvas, pageChanged
             
         # Called every view changes to this page:
@@ -52,7 +52,7 @@ class Tab_Data:
             pageChanged = self.changed
             self.changed = False
             if(pageChanged):
-            	True				
+                True                
             return self.pageCanvas, pageChanged
 
         # Called every view changes to this page:

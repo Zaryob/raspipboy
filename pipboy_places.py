@@ -132,23 +132,23 @@ def getPlaces(lat,lon,radius=2000,types='establishment'):
         if 'results' in result:
             #print ("Page results: %s" %(len(result['results'])))
             for thisPlace in result['results']:
-            	placeLoc = thisPlace['geometry']['location']
-            	placeTypes = thisPlace['types']
-            	
-            	# Get icon for place:
-            	iconName = None
-            	for thisType in placeTypes:
-            		if (iconName == None):
-            			if thisType in placeTypeIconNames:
-            				iconName = placeTypeIconNames[thisType]
-            	# Set default if name wasn't found:
-            	if (iconName == None):
-            		iconName = placeTypeIconNames['DEFAULT']
-            	
-            	placeItem = {'name':thisPlace['name'],'lat':placeLoc['lat'],'lon':placeLoc['lng'],'icon':iconName} #,'types':placeTypes
-            	
-            	places.append(placeItem)
-            	print(placeItem)
+                placeLoc = thisPlace['geometry']['location']
+                placeTypes = thisPlace['types']
+                
+                # Get icon for place:
+                iconName = None
+                for thisType in placeTypes:
+                    if (iconName == None):
+                        if thisType in placeTypeIconNames:
+                            iconName = placeTypeIconNames[thisType]
+                # Set default if name wasn't found:
+                if (iconName == None):
+                    iconName = placeTypeIconNames['DEFAULT']
+                
+                placeItem = {'name':thisPlace['name'],'lat':placeLoc['lat'],'lon':placeLoc['lng'],'icon':iconName} #,'types':placeTypes
+                
+                places.append(placeItem)
+                print(placeItem)
             
         # Set loop to download next page - there'll be up to 3 pages, of up to 20 results each:
         if 'next_page_token' in result:

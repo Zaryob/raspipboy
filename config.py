@@ -70,7 +70,7 @@ if(USE_SERIAL):
         print(("    Value: %s" %(str(ident))))
         
         if (ident != "PIPBOY"):
-            print("  Pip-Boy controls not found on serial-port!")	
+            print("  Pip-Boy controls not found on serial-port!")    
             #config.USE_SERIAL = False
         
     except:
@@ -140,20 +140,20 @@ if USE_SOUND:
         pygame.mixer.init(44100, -16, 2, 2048)
 
         SOUNDS = {
-            "start":	pygame.mixer.Sound('sounds/pipboy/ui_pipboy_access_up.wav'),
-            "end":		pygame.mixer.Sound('sounds/pipboy/ui_pipboy_access_down.wav'),
-            "hum":		pygame.mixer.Sound('sounds/pipboy/ui_pipboy_hum_lp.wav'),
-            "scroll":	pygame.mixer.Sound('sounds/pipboy/ui_pipboy_scroll.wav'),
-            "changetab":	pygame.mixer.Sound('sounds/pipboy/ui_pipboy_tab.wav'),
-            "changemode":	pygame.mixer.Sound('sounds/pipboy/ui_pipboy_mode.wav'),
-            "static":		pygame.mixer.Sound('sounds/radio/ui_radio_static_lp.wav'),
-            "tapestart":	pygame.mixer.Sound('sounds/pipboy/ui_pipboy_holotape_start.wav'),
-            "tapestop":		pygame.mixer.Sound('sounds/pipboy/ui_pipboy_holotape_stop.wav'),
-            "lighton":		pygame.mixer.Sound('sounds/pipboy/ui_pipboy_light_on.wav'),
-            "lightoff":		pygame.mixer.Sound('sounds/pipboy/ui_pipboy_light_off.wav'),
-            "beacon":		pygame.mixer.Sound('sounds/radio/beacon/ui_radio_beacon_header.wav'),
-            "camerastart":	pygame.mixer.Sound('sounds/vats/ui_vats_enter.wav'),
-            #"cameraexit":	pygame.mixer.Sound('sounds/vats/ui_vats_exit.wav'),
+            "start":    pygame.mixer.Sound('sounds/pipboy/ui_pipboy_access_up.wav'),
+            "end":        pygame.mixer.Sound('sounds/pipboy/ui_pipboy_access_down.wav'),
+            "hum":        pygame.mixer.Sound('sounds/pipboy/ui_pipboy_hum_lp.wav'),
+            "scroll":    pygame.mixer.Sound('sounds/pipboy/ui_pipboy_scroll.wav'),
+            "changetab":    pygame.mixer.Sound('sounds/pipboy/ui_pipboy_tab.wav'),
+            "changemode":    pygame.mixer.Sound('sounds/pipboy/ui_pipboy_mode.wav'),
+            "static":        pygame.mixer.Sound('sounds/radio/ui_radio_static_lp.wav'),
+            "tapestart":    pygame.mixer.Sound('sounds/pipboy/ui_pipboy_holotape_start.wav'),
+            "tapestop":        pygame.mixer.Sound('sounds/pipboy/ui_pipboy_holotape_stop.wav'),
+            "lighton":        pygame.mixer.Sound('sounds/pipboy/ui_pipboy_light_on.wav'),
+            "lightoff":        pygame.mixer.Sound('sounds/pipboy/ui_pipboy_light_off.wav'),
+            "beacon":        pygame.mixer.Sound('sounds/radio/beacon/ui_radio_beacon_header.wav'),
+            "camerastart":    pygame.mixer.Sound('sounds/vats/ui_vats_enter.wav'),
+            #"cameraexit":    pygame.mixer.Sound('sounds/vats/ui_vats_exit.wav'),
         }
         SOUNDS["hum"].set_volume(MINHUMVOL)
         print("(done)")

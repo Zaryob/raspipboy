@@ -45,9 +45,9 @@ class GpsModuleClass:
         print(url)
         response = urllib.request.urlopen( url )
         responseBody = response.read()
-        
         body = io.StringIO( responseBody )
         result = json.load( body )
+
         if 'status' not in result or result['status'] != 'OK':
             return None
         else:
@@ -76,12 +76,12 @@ class GpsModuleClass:
             compNum = 0
             retVal = ""
             while (notLocality and compNum < len(addressComps)):
-            	addressComp = addressComps[compNum]
-            	retVal = addressComp['long_name']
-            	for compType in addressComp['types']:
-            		if (compType == 'locality'):
-            			notLocality = False
-            	compNum += 1
+                addressComp = addressComps[compNum]
+                retVal = addressComp['long_name']
+                for compType in addressComp['types']:
+                    if (compType == 'locality'):
+                        notLocality = False
+                compNum += 1
             return retVal
             
     def hasCoords(self):
@@ -101,10 +101,10 @@ class GpsModuleClass:
         if config.USE_GPS:
             # Play sound until we have a GPS location locked:
             if (config.USE_SOUND) and (cmdLine != 0):
-            	#downloadSound = config.SOUNDS["static"]
-            	downloadSound = config.SOUNDS["beacon"]
-            	#config.SOUNDS["static"].play(loops=-1)
-            	downloadSound.play(loops=-1)
+                #downloadSound = config.SOUNDS["static"]
+                downloadSound = config.SOUNDS["beacon"]
+                #config.SOUNDS["static"].play(loops=-1)
+                downloadSound.play(loops=-1)
             
             # Initialise GPS module:
             session = gps.gps(host="localhost", port="2947")
@@ -114,59 +114,59 @@ class GpsModuleClass:
             
             # Don't use GPS if no devices were found:
             if (len(session.devices) == 0):
-            	config.USE_GPS = False
-            	print("GPS MODULE NOT FOUND!")
+                config.USE_GPS = False
+                print("GPS MODULE NOT FOUND!")
             
             if config.USE_GPS:
-            	try:
-            		while (self.lat == 0) and (self.lat == 0):
-            			next(session)
-            			self.lat = session.fix.latitude
-            			self.lon = session.fix.longitude
-            			self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
-            	except StopIteration:
-            		self.cmdLinePrint(cmdLine, "GPSD has terminated")
-            		config.USE_GPS = False
+                try:
+                    while (self.lat == 0) and (self.lat == 0):
+                        next(session)
+                        self.lat = session.fix.latitude
+                        self.lon = session.fix.longitude
+                        self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
+                except StopIteration:
+                    self.cmdLinePrint(cmdLine, "GPSD has terminated")
+                    config.USE_GPS = False
             
             del session
             
             if (config.USE_SOUND) and (cmdLine != 0):
-            	downloadSound.stop()
+                downloadSound.stop()
             
         newCoords = True
         
         if (not self.hasCoords()):
             # If GPS-fix wasn't available, load it from cached coords:
             if (os.path.exists(self.cacheFilename)):
-            	self.cmdLinePrint(cmdLine, ">GPSD.LOADCACHE %s" %(config.defaultPlace))
-            	self.cmdLinePrint(cmdLine, "Getting cached coords from %s..." %(self.cacheFilename))
-            	with open(self.cacheFilename, 'r') as f:
-            		savedVersion = eval(f.readline())
-            		
-            		# Only use coordinates-cache file if its version matches current version:
-            		if (savedVersion == self.saveVersion):
-            			self.lat = eval(f.readline())
-            			self.lon = eval(f.readline())
-            			self.locality = (f.readline()).rstrip()
-            			self.localityLat = eval(f.readline())
-            			self.localityLon = eval(f.readline())
-            			self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
-            			newCoords = False
-            		else:
-            			self.cmdLinePrint("\tInvalid cache-version, ignoring file")
-            			
+                self.cmdLinePrint(cmdLine, ">GPSD.LOADCACHE %s" %(config.defaultPlace))
+                self.cmdLinePrint(cmdLine, "Getting cached coords from %s..." %(self.cacheFilename))
+                with open(self.cacheFilename, 'r') as f:
+                    savedVersion = eval(f.readline())
+                    
+                    # Only use coordinates-cache file if its version matches current version:
+                    if (savedVersion == self.saveVersion):
+                        self.lat = eval(f.readline())
+                        self.lon = eval(f.readline())
+                        self.locality = (f.readline()).rstrip()
+                        self.localityLat = eval(f.readline())
+                        self.localityLon = eval(f.readline())
+                        self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
+                        newCoords = False
+                    else:
+                        self.cmdLinePrint("\tInvalid cache-version, ignoring file")
+                        
             # If cache wasn't available, generate coords from defaultPlace:
             if (newCoords):
-            	self.cmdLinePrint(cmdLine, ">GPSD.DEFAULTLOC %s" %(config.defaultPlace))
-            	self.cmdLinePrint(cmdLine, "Getting coords via geocode for Default Location %s..." %(config.defaultPlace))
-            	
-            	self.lat, self.lon = self.addressToLatLong(config.defaultPlace)
-            	self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
-            	
-            	self.locality = self.latLongToLocality(self.lat, self.lon)
-            	
-            	# Get map-centre coordinates for Locality:
-            	self.localityLat, self.localityLon = self.addressToLatLong(self.locality)
+                self.cmdLinePrint(cmdLine, ">GPSD.DEFAULTLOC %s" %(config.defaultPlace))
+                self.cmdLinePrint(cmdLine, "Getting coords via geocode for Default Location %s..." %(config.defaultPlace))
+                self.lat, self.lon = self.addressToLatLong(config.defaultPlace)
+                self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))
+                if not self.lat and not self.lon:
+                    return None, None
+                self.locality = self.latLongToLocality(self.lat, self.lon)
+                
+                # Get map-centre coordinates for Locality:
+                self.localityLat, self.localityLon = self.addressToLatLong(self.locality)
             
         # Get locality (i.e. city) for current coordinates via reverse-geocoding, if connection is available:
         self.cmdLinePrint(cmdLine, ">GPSD.LOCALITY")
@@ -180,6 +180,6 @@ class GpsModuleClass:
         if (newCoords):
             self.cmdLinePrint(cmdLine, ">GPSD.SAVECACHE %s" %(self.cacheFilename))
             with open(self.cacheFilename, 'w') as f:
-            	f.write("%s\n%s\n%s\n%s\n%s\n%s\n" %(self.saveVersion,repr(self.lat),repr(self.lon),self.locality,repr(self.localityLat),repr(self.localityLon)))
-            	
+                f.write("%s\n%s\n%s\n%s\n%s\n%s\n" %(self.saveVersion,repr(self.lat),repr(self.lon),self.locality,repr(self.localityLat),repr(self.localityLon)))
+                
         return self.lat, self.lon

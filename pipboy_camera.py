@@ -30,36 +30,36 @@ class VATS:
             pageVisible = False
             
             try:
-            	stream = io.BytesIO()
-            	
-            	# Continuously loops while camera is active...
-            	for foo in self.camera.capture_continuous(stream,format='jpeg'):
-            		
-            		# Truncate the stream to the current position (in case prior iterations output a longer image)
-            		stream.truncate()
-            		stream.seek(0)
-            		
-            		# Only process stream if VATS page is visible:
-            		if (self.rootParent.currentTab == self.parent) or (self.parent.pageCanvas == None):
-            			
-            			pageVisible = True
-            			
-            			stream_copy = io.BytesIO(stream.getvalue())
-            			image = pygame.image.load(stream_copy, 'jpeg')
-            			self.parent.pageCanvas = image.convert()
-            			self.parent.changed = True
+                stream = io.BytesIO()
+                
+                # Continuously loops while camera is active...
+                for foo in self.camera.capture_continuous(stream,format='jpeg'):
+                    
+                    # Truncate the stream to the current position (in case prior iterations output a longer image)
+                    stream.truncate()
+                    stream.seek(0)
+                    
+                    # Only process stream if VATS page is visible:
+                    if (self.rootParent.currentTab == self.parent) or (self.parent.pageCanvas == None):
+                        
+                        pageVisible = True
+                        
+                        stream_copy = io.BytesIO(stream.getvalue())
+                        image = pygame.image.load(stream_copy, 'jpeg')
+                        self.parent.pageCanvas = image.convert()
+                        self.parent.changed = True
 
-            		# If page is no longer visible, do something?
-            		elif (pageVisible):
-            			continue
+                    # If page is no longer visible, do something?
+                    elif (pageVisible):
+                        continue
             finally:
-            	self.camera.close()
+                self.camera.close()
         
     def __init__(self, *args, **kwargs):
         
         self.parent = args[0]
         self.rootParent = self.parent.rootParent
-        self.name = "V.A.T.S."    	
+        self.name = "V.A.T.S."        
         
         self.header = headFoot.Header(self)
         
@@ -70,7 +70,7 @@ class VATS:
         camThread.rootParent = self.rootParent
         camThread.start()
         self.camThread = camThread
-            	
+                
         # Generate footers for mode-pages:
         self.footerImgs = headFoot.genFooterImgs(["Light","Contrast","Exposure","Mode","Tinted",])
         
@@ -97,11 +97,11 @@ class VATS:
         for event in events:
             # TAKE PHOTO:
             if (event == 'sel'):
-            	print("Snap!")
-            	self.changed = True
+                print("Snap!")
+                self.changed = True
             # SCROLL-WHEEL:
             elif (type(event) is list):
-            	scrollVal = event[2]
-            	print(self.rootParent.modeNum)
-            	if (scrollVal != 0):
-            		continue
+                scrollVal = event[2]
+                print(self.rootParent.modeNum)
+                if (scrollVal != 0):
+                    continue

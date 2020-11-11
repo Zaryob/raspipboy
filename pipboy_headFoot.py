@@ -42,24 +42,24 @@ class Header:
             TextX, TextY = 0, 0
             
             if (n == 0):
-            	TextX = lineDn
-            	TextY = TitleTextY
-            	
-            	TextRect = (TextX - 2, TextY - 2, TextWidth + 4, config.charHeight + 4)
-            	pygame.draw.rect(self.canvas, (0,0,0), TextRect, 0)
+                TextX = lineDn
+                TextY = TitleTextY
+                
+                TextRect = (TextX - 2, TextY - 2, TextWidth + 4, config.charHeight + 4)
+                pygame.draw.rect(self.canvas, (0,0,0), TextRect, 0)
             else:
-            	TextX = (lineX - TextPad - TextWidth)
-            	TextY = UnderTextY
-            	
-            	thisLineDn = midLineDn
-            	if (n == rightIdx):
-            		thisLineDn = lineDn
-            	
-            	if (n == 1):
-            		pygame.draw.lines(self.canvas, config.DRAWCOLOUR, False, [(lineX, thisLineDn), (lineX, cornerPadding), (cornerPadding, cornerPadding), (cornerPadding, lineDn), ], 2)
-            	else:
-            		lineLeft = (TextX - TextPad)
-            		pygame.draw.lines(self.canvas, config.DRAWCOLOUR, False, [(lineX, thisLineDn), (lineX, cornerPadding), (lineLeft, cornerPadding)], 2)
+                TextX = (lineX - TextPad - TextWidth)
+                TextY = UnderTextY
+                
+                thisLineDn = midLineDn
+                if (n == rightIdx):
+                    thisLineDn = lineDn
+                
+                if (n == 1):
+                    pygame.draw.lines(self.canvas, config.DRAWCOLOUR, False, [(lineX, thisLineDn), (lineX, cornerPadding), (cornerPadding, cornerPadding), (cornerPadding, lineDn), ], 2)
+                else:
+                    lineLeft = (TextX - TextPad)
+                    pygame.draw.lines(self.canvas, config.DRAWCOLOUR, False, [(lineX, thisLineDn), (lineX, cornerPadding), (lineLeft, cornerPadding)], 2)
 
             self.canvas.blit(textImg, (TextX, TextY))
             
@@ -104,7 +104,7 @@ def genFooterImgs(ModeNames):
             doSelBox = (ModeNum == thisModeNum)
             BoxGrey = 0
             if (doSelBox):
-            	BoxGrey = config.SELBOXGREY
+                BoxGrey = config.SELBOXGREY
             BoxColour = (BoxGrey,BoxGrey,BoxGrey)
             
             thisText = ModeNames[ModeNum]
@@ -119,8 +119,8 @@ def genFooterImgs(ModeNames):
             TextRect = (TextX - 2, TextY - 2, TextWidth + 4, config.charHeight + 4)
             pygame.draw.rect(img, BoxColour, TextRect, 0)
             if (doSelBox):
-            	TextRect = (TextRect[0] - 2, TextRect[1], TextRect[2] + 2, TextRect[3])
-            	pygame.draw.rect(img, config.DRAWCOLOUR, TextRect, 2)
+                TextRect = (TextRect[0] - 2, TextRect[1], TextRect[2] + 2, TextRect[3])
+                pygame.draw.rect(img, config.DRAWCOLOUR, TextRect, 2)
             img.blit(textImg, textPos)
             
             TextCentreX += TextCentreDiff

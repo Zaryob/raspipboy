@@ -46,66 +46,66 @@ class CmdLineClass:
             isInputLine = False
             
             for char in thisLine:
-            	if (char == "\t"):
-            		drawChars += "  "
-            	else:
-            		drawChars += char
-            	
-            	# Only actually redraw screen every so often:
-            	lastChar = (charNum == lineEndNum)
-            	if (math.fmod(charNum,6) == 0) or (lastChar):
-            		if config.USE_SOUND:
-            			config.SOUNDS["changemode"].play()
-            		
-            		charImage = config.MONOFONT.render(drawChars, True, config.DRAWCOLOUR, (0, 0, 0))
-            		self.canvas.blit(charImage, (printX, self.printY))
-            		drawChars = ""
-            		
-            		printX += charImage.get_width()
-            		
-            		# Put cursor on next line if at end of line:
-            		if (lastChar):
-            			self.cursorRect[0] = self.homeX
-            			
-            			if (self.cursorRect[1] < self.maxCursorY):						
-            				self.cursorRect[1] += config.charHeight
-            			else:
-            				# Shift lines up if screen has been filled:
-            				tempCanvas = self.canvas.convert()
-            				self.canvas.fill((0,0,0))
-            				self.canvas.blit(tempCanvas, (0,-config.charHeight))
-            				pygame.draw.rect(self.canvas, (0,0,0), (0,0,config.WIDTH,config.charHeight), 0)
-            				
-            				self.printY -= config.charHeight
-            		else:
-            			self.cursorRect[0] = (printX + 1)
-            		
-            		# Generate draw-image, including cursor:
-            		drawImage = self.canvas.convert()
-            		pygame.draw.rect(drawImage, config.DRAWCOLOUR, self.cursorRect, 0)
-            		
-            		drawImage.blit(self.parent.background, (0,0), None, pygame.BLEND_RGB_ADD)
-            		drawImage.blit(self.baseOverlay, (0,0), None, pygame.BLEND_RGB_MULT)
-            		
-            		# Scale up and display:
-            		drawImage = pygame.transform.scale(drawImage, self.parent.screenSize)
-            		self.parent.screen.blit (drawImage, (0,0))
-            		
-            		pygame.display.update()
-            		#self.clock.tick(config.FPS)
-            		#print self.parent.clock.get_fps()
-            	
-            	# Wait after drawing prompt-character:
-            	if firstChar:
-            		firstChar = False
-            		if (char == ">"):
-            			isInputLine = True
-            			time.sleep(1)
-            	
-            	charNum += 1
-            	
+                if (char == "\t"):
+                    drawChars += "  "
+                else:
+                    drawChars += char
+                
+                # Only actually redraw screen every so often:
+                lastChar = (charNum == lineEndNum)
+                if (math.fmod(charNum,6) == 0) or (lastChar):
+                    if config.USE_SOUND:
+                        config.SOUNDS["changemode"].play()
+                    
+                    charImage = config.MONOFONT.render(drawChars, True, config.DRAWCOLOUR, (0, 0, 0))
+                    self.canvas.blit(charImage, (printX, self.printY))
+                    drawChars = ""
+                    
+                    printX += charImage.get_width()
+                    
+                    # Put cursor on next line if at end of line:
+                    if (lastChar):
+                        self.cursorRect[0] = self.homeX
+                        
+                        if (self.cursorRect[1] < self.maxCursorY):                        
+                            self.cursorRect[1] += config.charHeight
+                        else:
+                            # Shift lines up if screen has been filled:
+                            tempCanvas = self.canvas.convert()
+                            self.canvas.fill((0,0,0))
+                            self.canvas.blit(tempCanvas, (0,-config.charHeight))
+                            pygame.draw.rect(self.canvas, (0,0,0), (0,0,config.WIDTH,config.charHeight), 0)
+                            
+                            self.printY -= config.charHeight
+                    else:
+                        self.cursorRect[0] = (printX + 1)
+                    
+                    # Generate draw-image, including cursor:
+                    drawImage = self.canvas.convert()
+                    pygame.draw.rect(drawImage, config.DRAWCOLOUR, self.cursorRect, 0)
+                    
+                    drawImage.blit(self.parent.background, (0,0), None, pygame.BLEND_RGB_ADD)
+                    drawImage.blit(self.baseOverlay, (0,0), None, pygame.BLEND_RGB_MULT)
+                    
+                    # Scale up and display:
+                    drawImage = pygame.transform.scale(drawImage, self.parent.screenSize)
+                    self.parent.screen.blit (drawImage, (0,0))
+                    
+                    pygame.display.update()
+                    #self.clock.tick(config.FPS)
+                    #print self.parent.clock.get_fps()
+                
+                # Wait after drawing prompt-character:
+                if firstChar:
+                    firstChar = False
+                    if (char == ">"):
+                        isInputLine = True
+                        time.sleep(1)
+                
+                charNum += 1
+                
             self.printY += config.charHeight
 
             # Add wait for "processing" at end of "user-input" lines:
             if (isInputLine):
-            	time.sleep(0.5)
+                time.sleep(0.5)

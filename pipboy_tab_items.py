@@ -25,7 +25,7 @@ class Tab_Items:
             pageChanged = self.changed
             self.changed = False
             if(pageChanged):
-            	True
+                True
             return self.pageCanvas, pageChanged
 
         # Called every view changes to this page:
