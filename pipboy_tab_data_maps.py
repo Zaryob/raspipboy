@@ -3,7 +3,7 @@
 # Bits dealing with maps
 
 import pygame, os, time, datetime, random, math, numpy
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from PIL import Image, ImageEnhance
 from gdal2tiles import GlobalMercator
 from pygame.locals import *
@@ -188,7 +188,7 @@ class Mode_Map:
 			
 		# Load cached data, if found:
 		if (not config.FORCE_DOWNLOAD) and (os.path.exists(self.dataFilename)) and (os.path.exists(self.mapFilename)):
-			print ("  Reading data: %s" %(self.dataFilename))
+			print(("  Reading data: %s" %(self.dataFilename)))
 			with open(self.dataFilename, 'r') as f:
 				savedVersion = eval(f.readline())
 				savedMapLocation = (f.readline()).rstrip()
@@ -196,7 +196,7 @@ class Mode_Map:
 				# Only use coordinates-cache file if its version matches current version:
 				if (savedVersion == self.saveVersion):
 					if (savedMapLocation == self.mapLocation):
-						print "  Map-file is up-to-date, no need to download"
+						print("  Map-file is up-to-date, no need to download")
 						self.minLat = eval(f.readline())
 						self.minLon = eval(f.readline())
 						self.maxLat = eval(f.readline())
@@ -214,11 +214,11 @@ class Mode_Map:
 					print ("  Invalid cache-version, ignoring file")
 		
 		if doDownload:
-			print "DOWNLOADING:"
+			print("DOWNLOADING:")
 			mapUrl = "http://maps.googleapis.com/maps/api/staticmap?center=%s" %(self.mapLocation)
 			mapUrl += ("&zoom=%s&scale=%s&size=%sx%s%s&sensor=true" %(str(self.mapZoom), str(self.mapScale), str(self.mapSize), str(self.mapSize), self.mapArgs))
-			print mapUrl
-			urllib.urlretrieve (mapUrl,self.mapFilename)
+			print(mapUrl)
+			urllib.request.urlretrieve (mapUrl,self.mapFilename)
 			
 			if (self.mapType == 1):
 				# Download a set of places from Google for markers:
@@ -226,8 +226,8 @@ class Mode_Map:
 			
 			# Work out coordinates for map's corners:
 			self.getMapBounds(lat, lon, self.mapZoom, self.mapSize)
-			print "  Lat/Lon Min:(%s,%s) Max:(%s,%s)" %(self.minLat,self.minLon,self.maxLat,self.maxLon)
-			print "  Writing to file: %s" %(self.dataFilename)
+			print("  Lat/Lon Min:(%s,%s) Max:(%s,%s)" %(self.minLat,self.minLon,self.maxLat,self.maxLon))
+			print("  Writing to file: %s" %(self.dataFilename))
 			with open(self.dataFilename, 'w') as f:
 				f.write("%s\n" %(self.saveVersion))
 				f.write("%s\n" %(self.mapLocation))
@@ -269,7 +269,7 @@ class Mode_Map:
 					pygame.draw.lines(self.mapImage, gridColour, False, [(gridPos, 0), (gridPos, imageSize)], lineWidth)
 					gridPos += stepSize
 				pygame.draw.rect(self.mapImage, (255,255,255), (0,0,imageSize,imageSize), lineWidth)
-				print "GRIDDED!"
+				print("GRIDDED!")
 				
 			# Save processed image to cache-folder:
 			pygame.image.save(self.mapImage, self.mapFilename)
@@ -280,7 +280,7 @@ class Mode_Map:
 		# Work out values for quickly converting Lat/Lon to X/Y:
 		self.xPerLon = (self.mapScale * self.mapSize)/(self.maxLon - self.minLon)
 		self.yPerLat = (self.mapScale * self.mapSize)/(self.maxLat - self.minLat)
-		print ("xPerLon: %s  yPerLat:%s" %(self.xPerLon,self.yPerLat))
+		print(("xPerLon: %s  yPerLat:%s" %(self.xPerLon,self.yPerLat)))
 		
 		self.setViewToCurPos()
 	

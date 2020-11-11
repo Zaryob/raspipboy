@@ -97,11 +97,11 @@ class VATS:
 		for event in events:
 			# TAKE PHOTO:
 			if (event == 'sel'):
-				print "Snap!"
+				print("Snap!")
 				self.changed = True
 			# SCROLL-WHEEL:
 			elif (type(event) is list):
 				scrollVal = event[2]
-				print self.rootParent.modeNum
+				print(self.rootParent.modeNum)
 				if (scrollVal != 0):
 					continue

@@ -2,7 +2,7 @@
 #	Neal D Corbett, 2013
 # Map Place management
 
-import time, urllib, urllib2, StringIO, json
+import time, urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse, io, json
 import config
 
 # Google Places custom-search documentation:
@@ -123,10 +123,10 @@ def getPlaces(lat,lon,radius=2000,types='establishment'):
 		pageNum += 1
 		#print ("Page %s: %s" %(pageNum, url))
 		
-		response = urllib2.urlopen( url )
+		response = urllib.request.urlopen( url )
 		responseBody = response.read()
 		
-		body = StringIO.StringIO( responseBody )
+		body = io.StringIO( responseBody )
 		result = json.load(body)
 		
 		if 'results' in result:

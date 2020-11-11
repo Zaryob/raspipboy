@@ -53,30 +53,30 @@ if USE_SERIAL:
 			import serial
 		except:
 			# Deactivate serial-related systems if load failed:
-			print "SERIAL LIBRARY NOT FOUND!"
+			print("SERIAL LIBRARY NOT FOUND!")
 			USE_SERIAL = False
 	loadSerial()
 if(USE_SERIAL):
 	try:
-		print ("Init serial: %s" %(SERIALPORT))
+		print(("Init serial: %s" %(SERIALPORT)))
 		ser = serial.Serial(SERIALPORT, 9600)
 		ser.timeout=1
 		
-		print "  Requesting device identity..."
+		print("  Requesting device identity...")
 		ser.write("\nidentify\n")
 		
 		ident = ser.readline()
 		ident = ident.strip()
-		print ("    Value: %s" %(str(ident)))
+		print(("    Value: %s" %(str(ident))))
 		
 		if (ident != "PIPBOY"):
-			print "  Pip-Boy controls not found on serial-port!"	
+			print("  Pip-Boy controls not found on serial-port!")	
 			#config.USE_SERIAL = False
 		
 	except:
 		print ("* Failed to access serial! Ignoring serial port")
 		USE_SERIAL = False
-print ("SERIAL: %s" %(USE_SERIAL))
+print(("SERIAL: %s" %(USE_SERIAL)))
 
 # Test camera:
 if USE_CAMERA:
@@ -91,7 +91,7 @@ if USE_CAMERA:
 			return False
 	
 	USE_CAMERA = hasCamera()
-print ("CAMERA: %s" %(USE_CAMERA))
+print(("CAMERA: %s" %(USE_CAMERA)))
 
 # Downloaded/auto-generated data will be put here:
 CACHEPATH = 'cache'
@@ -106,7 +106,7 @@ EVENTS = {
 	'SONG_END': pygame.USEREVENT + 1
 }
 
-print "Loading images..."
+print("Loading images...")
 IMAGES = {
 	"background":pygame.image.load('images/pipboy_back.png'),
 	"scanline":pygame.image.load('images/pipboyscanlines.png'),
@@ -114,29 +114,29 @@ IMAGES = {
 	"statusboy":pygame.image.load('images/pipboy_statusboy.png'),
 }
 
-print "(done)"
+print("(done)")
 
 # Test internet connection:
 if USE_INTERNET:
-	import urllib2
+	import urllib.request, urllib.error, urllib.parse
 	
 	def internet_on():
 		try:
 			# Can we access this Google address?
-			response=urllib2.urlopen('http://www.google.com',timeout=5)
+			response=urllib.request.urlopen('http://www.google.com',timeout=5)
 			return True
-		except urllib2.URLError as err: pass
+		except urllib.error.URLError as err: pass
 		return False
 	
 	USE_INTERNET = internet_on()
-print ("INTERNET: %s" %(USE_INTERNET))
+print(("INTERNET: %s" %(USE_INTERNET)))
 
 # Test and set up sounds::
 MINHUMVOL = 0.7
 MAXHUMVOL = 1.0
 if USE_SOUND:
 	try:
-		print "Loading sounds..."
+		print("Loading sounds...")
 		pygame.mixer.init(44100, -16, 2, 2048)
 
 		SOUNDS = {
@@ -156,10 +156,10 @@ if USE_SOUND:
 			#"cameraexit":	pygame.mixer.Sound('sounds/vats/ui_vats_exit.wav'),
 		}
 		SOUNDS["hum"].set_volume(MINHUMVOL)
-		print "(done)"
+		print("(done)")
 	except:
 		USE_SOUND = False
-print ("SOUND: %s" %(USE_SOUND))
+print(("SOUND: %s" %(USE_SOUND)))
 
 # Set up fonts:
 pygame.font.init()

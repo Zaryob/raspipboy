@@ -27,14 +27,14 @@ class CmdLineClass:
 		
 	def printText (self, thisLine):
 		if config.QUICKLOAD:
-			print thisLine
+			print(thisLine)
 		elif thisLine == "**cls":
 			# Revert screen:
 			time.sleep(2)
 			self.canvas.fill((0,0,0))
 			self.printY = self.homeY
 		else:
-			print thisLine
+			print(thisLine)
 			
 			printX = self.homeX
 			charNum = 0

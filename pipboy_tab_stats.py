@@ -221,7 +221,7 @@ class Tab_Stats:
 				if (self.name == 'BAT'):	# Get battery-status events
 					for event in events:
 						if (type(event) is str) and (event.startswith('volts')):
-							print event; # DEBUG PRINT
+							print(event); # DEBUG PRINT
 							tokens = string.split(event);
 							
 							batVolts = float(tokens[1]);
@@ -231,7 +231,7 @@ class Tab_Stats:
 				elif (self.name == 'TMP'):	# Get temperature-status events
 					for event in events:
 						if (type(event) is str) and (event.startswith('temp')):
-							print event; # DEBUG PRINT
+							print(event); # DEBUG PRINT
 							tokens = string.split(event);
 							
 							tempVal = float(tokens[1]);

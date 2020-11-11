@@ -3,7 +3,7 @@
 # GPS/position functions
 
 import os, time, math
-import urllib, urllib2, StringIO, json
+import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse, io, json
 import config
 
 if config.USE_GPS:
@@ -14,7 +14,7 @@ if config.USE_GPS:
 			import gps
 		except:
 			# Deactivate GPS-related systems if load failed:
-			print "GPS LIBRARY NOT FOUND!"
+			print("GPS LIBRARY NOT FOUND!")
 			config.USE_GPS = False
 	loadGPS()
 
@@ -41,12 +41,12 @@ class GpsModuleClass:
 			'address': address,
 			'sensor': 'false',
 		}
-		url = 'http://maps.google.com/maps/api/geocode/json?' + urllib.urlencode( urlParams )
-		print url
-		response = urllib2.urlopen( url )
+		url = 'http://maps.google.com/maps/api/geocode/json?' + urllib.parse.urlencode( urlParams )
+		print(url)
+		response = urllib.request.urlopen( url )
 		responseBody = response.read()
 		
-		body = StringIO.StringIO( responseBody )
+		body = io.StringIO( responseBody )
 		result = json.load( body )
 		if 'status' not in result or result['status'] != 'OK':
 			return None
@@ -59,13 +59,13 @@ class GpsModuleClass:
 			'latlng': (str(lat) +"," + str(lon)),
 			'sensor': 'false',
 		}
-		url = 'http://maps.google.com/maps/api/geocode/json?' + urllib.urlencode( urlParams )
-		print "latLongToLocality:"
-		print url
-		response = urllib2.urlopen( url )
+		url = 'http://maps.google.com/maps/api/geocode/json?' + urllib.parse.urlencode( urlParams )
+		print("latLongToLocality:")
+		print(url)
+		response = urllib.request.urlopen( url )
 		responseBody = response.read()
 		
-		body = StringIO.StringIO( responseBody )
+		body = io.StringIO( responseBody )
 		result = json.load( body )
 		if 'status' not in result or result['status'] != 'OK':
 			return None
@@ -115,12 +115,12 @@ class GpsModuleClass:
 			# Don't use GPS if no devices were found:
 			if (len(session.devices) == 0):
 				config.USE_GPS = False
-				print "GPS MODULE NOT FOUND!"
+				print("GPS MODULE NOT FOUND!")
 			
 			if config.USE_GPS:
 				try:
 					while (self.lat == 0) and (self.lat == 0):
-						session.next()
+						next(session)
 						self.lat = session.fix.latitude
 						self.lon = session.fix.longitude
 						self.cmdLinePrint(cmdLine, "\t(%s,%s)" %(str(self.lat),str(self.lon)))

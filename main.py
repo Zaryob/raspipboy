@@ -40,17 +40,17 @@ class Engine:
 			self.ser = config.ser
 			True#self.ser.write("gaugeMode=2")
 		
-		print "Init pygame:"
+		print("Init pygame:")
 		pygame.init()
 		pygame.display.init()
-		print "(done)"
+		print("(done)")
 		
 		self.rootParent = self
 		self.screenSize = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 		self.canvasSize = (config.WIDTH, config.HEIGHT)
 		
-		print 'Resolution: {0}x{1}'.format(self.screenSize[0], self.screenSize[1])
-		print 'Canvas Size: {0}x{1}'.format(self.canvasSize[0], self.canvasSize[1])
+		print('Resolution: {0}x{1}'.format(self.screenSize[0], self.screenSize[1]))
+		print('Canvas Size: {0}x{1}'.format(self.canvasSize[0], self.canvasSize[1]))
 		
 		# Don't show mouse-pointer:
 		pygame.mouse.set_visible(0)
@@ -126,7 +126,7 @@ class Engine:
 		distortSpeed = (config.HEIGHT / 40)
 		self.overlayFrames = []
 		
-		print "START"
+		print("START")
 		
 		cmdLine = CmdLineClass(self)
 	
@@ -190,7 +190,7 @@ class Engine:
 		self.overlayFramesCount = (2 * self.animDelayFrames)
 		self.frameNum = 0
 		
-		print "END GENERATE"
+		print("END GENERATE")
 		
 		# Get coordinates:
 		self.gpsModule.getCoords(cmdLine)
@@ -216,7 +216,7 @@ class Engine:
 		
 		if config.USE_SOUND:
 			config.SOUNDS["start"].play()
-		print "END INIT PROCESS"
+		print("END INIT PROCESS")
 		
 		self.currentTab.resetPage(self.modeNum)
 		tabCanvas, tabChanged = self.drawTab()
@@ -332,7 +332,7 @@ class Engine:
 			self.frameNum = 0
 			
 			# Only print FPS every so often, to avoid slowing us down:
-			print ("FPS: " + str(self.clock.get_fps()))
+			print(("FPS: " + str(self.clock.get_fps())))
 	
 	drawnPage = []
 	def drawTab(self):
