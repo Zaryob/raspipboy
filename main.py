@@ -193,6 +193,7 @@ class Engine:
         print("END GENERATE")
         
         # Get coordinates:
+        if config.USE_GPS:
             self.gpsModule.getCoords(cmdLine)
         
             # Initial map-downloads:
